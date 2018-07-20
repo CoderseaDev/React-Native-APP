@@ -1,0 +1,11 @@
+export const TRY_AUTH ='TRY_AUTH';
+export const UI_START_LOADING = "UI_START_LOADING";
+export const UI_STOP_LOADING = "UI_STOP_LOADING";
+export const AUTH_SET_TOKEN = "AUTH_SET_TOKEN";
+export const AUTH_REMOVE_TOKEN = "AUTH_REMOVE_TOKEN";
+export const TRY_SEARCH = "TRY_SEARCH";
+export const SET_ROCHTA = 'SET_ROCHTA';
+export const SET_PATIENT = 'SET_PATIENT';
+export const PATIENT_ADDED = "PATIENT_ADDED";
+export const START_ADD_PATIENT = "START_ADD_PATIENT";
+export const REMOVE_PATIENT = "REMOVE_PATIENT";
