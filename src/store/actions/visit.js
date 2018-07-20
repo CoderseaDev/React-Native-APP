@@ -16,27 +16,37 @@ export const addVisitor = (visitorName, comment, image, date, pkey) => {
         data.append('date', new Date(date).toISOString());
         data.append('patient_id', pkey._id);
         data.append('image', {
-            uri : image.uri,
+            uri: image.uri,
             type: image.type,
             name: image.fileName
         });
-        axios.post("http://codersea.com:8080/visit/addVisit", data, {headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'multipart/form-data',
-            "Authorization": getState().auth.token
-        }})
+        axios.post("http://codersea.com:8080/visit/addVisit", data, {
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'multipart/form-data',
+                "Authorization": getState().auth.token
+            }
+        })
             .then((responseJson) => {
-                console.group("visit success");
                 console.log(responseJson);
-                console.groupEnd("visit success");
+                console.log(responseJson.data.message);
                 dispatch(uiStopLoading());
                 ToastAndroid.show('You Have Add The Visitor!', ToastAndroid.LONG);
             })
             .catch((error) => {
-                dispatch(uiStopLoading());
-                alert("Please Fill The Blank Inputs")
-                console.log(error);
-            });
+                if(error.response.data.error) {
+                    dispatch(uiStopLoading());
+                    console.log(error.response.data.error);
+                    alert(error.response.data.error);
+                }
+
+            })
+            .catch((error) => {
+            dispatch(uiStopLoading());
+            alert("please Upload Image");
+
+
+        })
     }
 };
 /****

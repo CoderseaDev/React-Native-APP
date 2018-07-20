@@ -9,7 +9,7 @@ import {
     Picker,
     KeyboardAvoidingView,
     Alert,
-    ImageBackground,
+    ActivityIndicator,
 Button
 } from "react-native";
 import DatePicker from 'react-native-datepicker';
@@ -223,6 +223,9 @@ class PatientProfileDataDetailsScreen extends Component {
             />
 
         );
+        if (this.props.isLoading) {
+            updateButton = <ActivityIndicator/>;
+        }
 
         let goToVisitButton = (
 
@@ -660,7 +663,6 @@ const styles = StyleSheet.create({
 const mapStateToProps = state => {
     return {
         isLoading: state.ui.isLoading,
-        //  patientAdded: state.patientProfile.patientAdded
         patients: state.patientProfile.patients
     };
 };

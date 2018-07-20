@@ -199,6 +199,7 @@ class PatientProfileScreen extends Component {
                                             prevState.controls[key].validationRules,
                                         ),
                                         touched: true
+
                                     }
                                 }
                             };
@@ -238,6 +239,8 @@ class PatientProfileScreen extends Component {
                 this.state.controls.contactRelationship.value,
                 this.state.controls.contactPhoneNo.value,
             );
+
+        this.props.navigator.pop();
 
 
      };
@@ -610,12 +613,9 @@ class PatientProfileScreen extends Component {
 
 const styles = {
         container:{
-
             flex:1,
             justifyContent:"center",
             alignItems:"center",
-          //  margin: 10,
-
         },
     InputHorzStyle: {
         flexDirection: 'row',

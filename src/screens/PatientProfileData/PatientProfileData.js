@@ -18,12 +18,8 @@ class SearchPatientProfileDataScreen extends Component {
         this.props.navigator.setOnNavigatorEvent(this.onNavigatorEvent);
 
     }
-
-
     static navigatorStyle = {
         navBarButtonColor: "#000000",
-       // drawUnderNavBar: true,
-     //   navBarTranslucent: true
 
     };
 
@@ -32,8 +28,6 @@ class SearchPatientProfileDataScreen extends Component {
 
 // to load visitor data screen all the time we don't need to refresh
     onNavigatorEvent = event => {
-
-
         if (event.type === "ScreenChangedEvent") {
             if (event.id === "willAppear") {
                 this.props.onLoadPatients();
@@ -72,7 +66,6 @@ class SearchPatientProfileDataScreen extends Component {
             return patientProfile._id === key;
         });
 
-
         this.props.navigator.push({
             screen: 'Medical.VisitScreen',
             title: `Add Visitor To : ${selPatient.patientName}`,
@@ -82,25 +75,23 @@ class SearchPatientProfileDataScreen extends Component {
 
 
         });
-
-
     };
 
 
 
 
 
-
     render() {
-     /*   if (!this.state.trySpin) {
-            return (
-                <ActivityIndicator
-                    animating={true}
-                    style={styles.indicator}
-                    size="large"
-                />
-            );
-        }*/
+
+           if (this.props.isLoading) {
+               return (
+                   <ActivityIndicator
+                       animating={true}
+                       style={styles.indicator}
+                       size="large"
+                   />
+               );
+           }
 
         let viewButton = (
             <View>
@@ -110,15 +101,6 @@ class SearchPatientProfileDataScreen extends Component {
 
             </View>
         );
-
-        if (this.props.isLoading) {
-            viewButton =  <ActivityIndicator
-                animating={true}
-                style={styles.indicator}
-                size="large"
-            />;
-        }
-
 
         return (
 

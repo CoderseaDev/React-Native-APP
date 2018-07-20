@@ -19,6 +19,7 @@ import SearchPatientProfileDataScreen from "./src/screens/PatientProfileData/Pat
 
 import PatientProfileDataDetailsScreen from "./src/screens/PatientProfileDataDetails/PatientProfileDataDetails";
 
+import Main from "./src/screens/Splash/trySplash";
 
 
 
@@ -84,10 +85,20 @@ Navigation.registerComponent(
     Provider
 );
 
+Navigation.registerComponent(
+    "Medical.Main",
+    () => Main,
+    store,
+    Provider
+);
+
+
+
 //Start a App
 export default () => Navigation.startSingleScreenApp({
     screen: {
         screen: "Medical.AuthScreen",
+     //   title: "Login Screen"
     },
 
 });

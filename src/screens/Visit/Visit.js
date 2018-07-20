@@ -278,6 +278,7 @@ class VisitScreen extends Component {
         );
     }
 
+
 }
 
 const styles = StyleSheet.create({
@@ -306,15 +307,18 @@ const styles = StyleSheet.create({
 
     },
     bgImage: {
+       // width:"100%",
+      //  height:"100%",
 
           flex: 1,
 
          top: 0,
           left: 0,
-
+        //  width: SCREEN_WIDTH,
+        //   height: SCREEN_HEIGHT,
     justifyContent: 'center',
         alignItems: 'center',
-
+        //  opacity: .5
     },
     landscapeInputContainer:{
         flexDirection:"row",
