@@ -12,17 +12,6 @@ class SideDrawer extends Component {
         super(props);
 
     }
-
-
-/*
-    handlePress = () => {
-        this.props.navigator.push({
-            screen:"Medical.AuthScreen",
-            title:"Login Screen"
-        });
-    };*/
-
-
     render(){
         return(
             <View

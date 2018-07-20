@@ -1,12 +1,8 @@
 import {AUTH_REMOVE_TOKEN, AUTH_SET_TOKEN} from "../actions/actionTypes";
-
-
 const initialState ={
     token : null,
     expiryDate:null
 };
-
-
 const reducer = (state = initialState , action)=>{
     switch ( action.type){
         case AUTH_SET_TOKEN:
@@ -25,5 +21,4 @@ const reducer = (state = initialState , action)=>{
             return state;
     }
 };
-
 export default  reducer;

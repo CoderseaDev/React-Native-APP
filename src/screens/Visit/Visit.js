@@ -6,8 +6,7 @@ import PickImage from '../../components/PickImage/PickImage';
 import validate from "../../utility/validation";
 import {connect} from 'react-redux';
 import {FormInput} from 'react-native-elements'
-import {addRochta} from "../../store/actions/index";
-
+import {addVisitor} from "../../store/actions/index";
 class VisitScreen extends Component {
     constructor(props) {
         super(props);
@@ -142,7 +141,7 @@ class VisitScreen extends Component {
     };
 
     rochtaAddedHandler = () => {
-        this.props.onAddRochta(
+        this.props.onAddVisitor(
             this.state.controls.visitorName.value,
             this.state.controls.comment.value,
             this.state.controls.image.value,
@@ -208,7 +207,6 @@ class VisitScreen extends Component {
                         style={this.state.viewMode==="portrait"
                             ? styles.portraitDateWrapper
                             : styles.landscapeDateWrapper}
-                       // style={{width: 325 }}
                         date={this.state.controls.date.value}
                         mode="date"
                         placeholder="select date"
@@ -280,7 +278,6 @@ class VisitScreen extends Component {
         );
     }
 
-
 }
 
 const styles = StyleSheet.create({
@@ -309,18 +306,15 @@ const styles = StyleSheet.create({
 
     },
     bgImage: {
-       // width:"100%",
-      //  height:"100%",
 
           flex: 1,
 
          top: 0,
           left: 0,
-        //  width: SCREEN_WIDTH,
-        //   height: SCREEN_HEIGHT,
+
     justifyContent: 'center',
         alignItems: 'center',
-        //  opacity: .5
+
     },
     landscapeInputContainer:{
         flexDirection:"row",
@@ -358,7 +352,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        onAddRochta: (visitorName, comment, image, date, pkey) => dispatch(addRochta(visitorName, comment, image, date, pkey))
+        onAddVisitor: (visitorName, comment, image, date, pkey) => dispatch(addVisitor(visitorName, comment, image, date, pkey))
 
     };
 };

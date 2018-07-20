@@ -2,8 +2,6 @@ import {UI_START_LOADING , UI_STOP_LOADING} from "../actions/actionTypes";
 const initialState ={
     isLoading : false
 };
-
-
 const reducer = (state = initialState , action)=>{
 
     switch(action.type){
@@ -22,5 +20,4 @@ const reducer = (state = initialState , action)=>{
     }
 
 };
-
 export  default  reducer;

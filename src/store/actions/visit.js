@@ -1,10 +1,13 @@
-import {uiStartLoading, uiStopLoading, authGetToken} from './index';
-import {SET_ROCHTA} from "./actionTypes";
+import {uiStartLoading, uiStopLoading} from './index';
+import {SET_VISITOR} from "./actionTypes";
 import {ToastAndroid} from 'react-native';
 import axios from 'axios';
 
-
-export const addRochta = (visitorName, comment, image, date, pkey) => {
+/*************
+ * This CONST Add Visitors To The Patient ,
+ * @params pkey => to Catch The its Already The Patient We Need To Add The Visitors To it Or Not
+ */
+export const addVisitor = (visitorName, comment, image, date, pkey) => {
     return (dispatch, getState) => {
         dispatch(uiStartLoading());
         const data = new FormData();
@@ -36,7 +39,10 @@ export const addRochta = (visitorName, comment, image, date, pkey) => {
             });
     }
 };
-export const getRochta = (pkey1) => {
+/****
+ * Get Visitor by @param pkey1
+ */
+export const getVisitor = (pkey1) => {
     return (dispatch, getState) => {
         console.log(pkey1);
         axios.get(`http://codersea.com:8080/patient/${pkey1}`, {
@@ -48,7 +54,7 @@ export const getRochta = (pkey1) => {
                 const response = JSON.parse(res.request._response).visits_info;
                console.log("Get Visit",response);
 
-                dispatch(setRochta(response));
+                dispatch(setVisitor(response));
                 console.log(response)
             })
             .catch((err) => {
@@ -57,10 +63,12 @@ export const getRochta = (pkey1) => {
     };
 
 };
-
-export const setRochta = visits => {
+/*****
+ * To Set Visitor To Our Redux Store
+ */
+export const setVisitor = visits => {
     return {
-        type: SET_ROCHTA,
+        type: SET_VISITOR,
         visits: visits
     };
 };

@@ -1,5 +1,5 @@
 import React , {Component} from 'react';
-import {View ,Text, StyleSheet ,ImageBackground , Dimensions , KeyboardAvoidingView , Keyboard , TouchableWithoutFeedback , ActivityIndicator} from 'react-native';
+import {View , StyleSheet ,ImageBackground , Dimensions , KeyboardAvoidingView , Keyboard , TouchableWithoutFeedback , ActivityIndicator} from 'react-native';
 import  DefaultInput from "../../components/UI/DefaultInput/DefaultInput";
 import HeadingText from "../../components/UI/HeadingText/HeadingText";
 import MainText from "../../components/UI/MainText/MainText";
@@ -9,18 +9,18 @@ import { Input, Button } from 'react-native-elements'
 
 import validate from "../../utility/validation";
 import {connect} from 'react-redux';
-import {tryAuth , authAutoSignIn} from '../../store/actions/index';
+import {authSingIn , authAutoSignIn} from '../../store/actions/index';
 
-console.disableYellowBox = true; // this is to remove yello boxess greeeeaaat
+console.disableYellowBox = true;
 
 class AuthScreen extends Component{
-
+    constructor(props){
+        super(props);
+        Dimensions.addEventListener("change" ,this.updateStyles);
+    }
     state={
-        //this state to make your deice landscape and portarit deminsons
         viewMode : Dimensions.get("window").height>500 ? "portrait": "landscape",
-
         authMode:"login",
-
         controls:{
             email:{
                 value:"",
@@ -39,31 +39,27 @@ class AuthScreen extends Component{
                 touched: false
             },
         }
-
     };
-
 
     componentDidMount() {
         this.props.onAutoSignIn();
     }
     static navigatorStyle = {
-       // navBarButtonColor: "#1E90FF",
         navBarHidden: true
     };
 
-    // this event linster to handle when a give a mobile deminshon to (landscabe) it handle event listner
-    constructor(props){
-        super(props);
-        Dimensions.addEventListener("change" ,this.updateStyles);
-    }
-
-    // after i return to the default body of screen (portrait)
+    /*****
+     *  after return to the default body of screen (portrait)
+     */
     componentWillUnmount(){
         Dimensions.removeEventListener("change",this.updateStyles);
     }
 
 
-    // operators conditions ,, update view mode from portorati to landscape by window height
+    /****
+     *
+     * @param dims  operators conditions ,, update view mode from portorat to landscape by window height
+     */
     updateStyles =(dims)=>{
         this.setState({
             viewMode:
@@ -72,6 +68,9 @@ class AuthScreen extends Component{
     };
 
 
+    /********
+     * When onPress Login
+     */
     authHandler = ( ) =>{
         const  authData ={
             email:this.state.controls.email.value,
@@ -83,7 +82,11 @@ class AuthScreen extends Component{
 
     };
 
-// key the identifer my contorls like email , password , ...
+    /*****
+     *
+     * @param key identifer my contorls like email , password , ...
+     * @param value
+     */
     updateInputState = (key, value) => {
         this.setState(prevState => {
             return {
@@ -105,24 +108,18 @@ class AuthScreen extends Component{
     };
 
     render(){
-
         let headingText= null;
-
-
         let submitButton1 = (
-
             <Button
                 onPress={this.authHandler}
                title='LOG IN'
                 activeOpacity={1}
                 underlayColor="transparent"
-                buttonStyle={{height: 50, width: 250, backgroundColor: 'transparent', borderWidth: 2, borderColor: '#E6E6FA', borderRadius: 30}}
-                containerStyle={{marginVertical: 10}}
-                titleStyle={{ color:'white'  }}
+                buttonStyle={styles.buttonStyle}
+                containerStyle={styles.buttonContainerStyle}
+                titleStyle={styles.buttonTitleStyle}
                 >
-
             </Button>
-
         );
         if(this.state.viewMode==="portrait"){
             headingText=(
@@ -131,23 +128,17 @@ class AuthScreen extends Component{
                 </MainText>
             );
         }
-
         if(this.props.isLoading){
             submitButton1 = <ActivityIndicator/>;
 
         }
-
-
         return(
             <ImageBackground source={backgroundImage}   style={styles.backgroundImage}>
                 <KeyboardAvoidingView
                     style={styles.container}
                     behavior="padding"
                 >
-
                     {headingText}
-
-
                     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
                         <View style={styles.inputContainer}>
                             <DefaultInput
@@ -184,16 +175,10 @@ class AuthScreen extends Component{
 
                                     />
                                 </View>
-
                             </View>
                         </View>
                     </TouchableWithoutFeedback>
-
                     {submitButton1}
-
-
-
-
                 </KeyboardAvoidingView>
             </ImageBackground>
         );
@@ -201,6 +186,11 @@ class AuthScreen extends Component{
 }
 
 const styles = StyleSheet.create({
+    backgroundImage:{
+        width:"100%",
+        flex:1,
+
+    },
     container:{
         flex:1,
         justifyContent:"center",
@@ -212,44 +202,47 @@ const styles = StyleSheet.create({
 
     },
     input:{
-       // backgroundColor:"#eee",
         borderColor:"#bbb",
         color: 'white',
 
-    },
-    backgroundImage:{
-        width:"100%",
-        flex:1,
-
-    },
-    landscapePasswordContainer:{
-        flexDirection:"row",
-        justifyContent:"space-between"
     },
     portraitPasswordContainer:{
         flexDirection:"column",
         justifyContent:"flex-start"
     },
-    landscapePasswordWrapper:{
-        width: "45%",
+    landscapePasswordContainer:{
+        flexDirection:"row",
+        justifyContent:"space-between"
     },
     portraitPasswordWrapper:{
         width: "100%",
     },
-
+    landscapePasswordWrapper:{
+        width: "45%",
+    },
+    buttonStyle:{height: 50,
+        width: 250,
+        backgroundColor: 'transparent',
+        borderWidth: 2,
+        borderColor: '#E6E6FA',
+        borderRadius: 30
+    },
+    buttonContainerStyle: {
+            marginVertical: 10
+        },
+    buttonTitleStyle: {
+        color:'white'},
 });
 
 const mapStateToProps = state =>{
     return{
         isLoading :state.ui.isLoading
-
-
     }  ;
 };
 
 const mapDispatchToProps = dispatch=>{
     return{
-        onTryAuth:(authData , authMode)=> dispatch(tryAuth(authData, authMode)),
+        onTryAuth:(authData , authMode)=> dispatch(authSingIn(authData, authMode)),
 
         onAutoSignIn:()=> dispatch(authAutoSignIn())
     };

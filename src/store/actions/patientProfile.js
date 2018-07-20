@@ -2,6 +2,9 @@ import {PATIENT_ADDED, REMOVE_PATIENT, SET_PATIENT, START_ADD_PATIENT} from "./a
 import {uiStartLoading, uiStopLoading, authGetToken , authLogout} from './index';
 import axios from 'axios';
 import {Alert, ToastAndroid} from 'react-native';
+/******
+ * Try Auto From Inputs
+ */
 const dummyData = {
     address: "ziko",
     bloodType: "o+",
@@ -14,22 +17,27 @@ const dummyData = {
     gender: "male",
     height: "116",
     homeNo: "1213",
-    // patientId: 28,
+
     mobileNo: "192",
     patientName: "Bakry",
     surName: "lo77aa",
     weight: "313",
 };
 
-export const startAddPatient = () => {
 
+/**********
+ * Start Add Patient In Our Redux Store
+ */
+export const startAddPatient = () => {
     return {
         type: START_ADD_PATIENT
     };
 };
 
-
-export const addPatient = (patientName, surName, height, weight,
+/**************
+ * This CONST Request The Server To Start Add Patients
+ */
+ export const addPatient = (patientName, surName, height, weight,
                            gender, bloodType, complaint, date,
                            homeNo, mobileNo, address, email, contactName,
                            contactRelationship, contactPhoneNo, ) => {
@@ -43,13 +51,12 @@ export const addPatient = (patientName, surName, height, weight,
         };
 
 
-
         dispatch(authGetToken())
             .catch(() => {
                 alert("No valid token found!");
             })
             .then(token => {
-                axios.post('http://codersea.com:8080/patient/addNewPatient', dummyData, {
+                axios.post('http://codersea.com:8080/patient/addNewPatient', patientProfileData, {
                     headers: {
                         'content-type': 'application/json', "Authorization": token
                     }
@@ -75,12 +82,19 @@ export const addPatient = (patientName, surName, height, weight,
 };
 
 
+/*****
+ * This CONST After We Success Add Patient That Hanlde Some Func In The Back Like Go To The Search Page Again
+ */
+
 export const patientAdded = () => {
     return {
         type: PATIENT_ADDED
     };
 };
 
+/************
+ * Get Patients Data From The Server
+ */
 export const getPatient = () => {
     return dispatch => {
 
@@ -127,6 +141,9 @@ export const getPatient = () => {
 
 };
 
+/********
+ * Set Patients in Our Redux Store
+ */
 export const setPatient = patients => {
     return {
         type: SET_PATIENT,
@@ -134,6 +151,9 @@ export const setPatient = patients => {
     };
 };
 
+/************
+ * Update The Patients Data
+ */
 export const updatePatient = (patientName, surName, email, mobileNo,
                               height,weight, bloodType,
                                 complaint, homeNo,
@@ -173,7 +193,9 @@ export const updatePatient = (patientName, surName, email, mobileNo,
     };
 };
 
-
+/******
+ * @params selectedPatient , key To Catch The Patient we Need To Delete it
+ */
 export const deletePatient = ( selectedPatient , key) => {
     return (dispatch, getState) => {
         dispatch(uiStartLoading());
@@ -195,6 +217,9 @@ export const deletePatient = ( selectedPatient , key) => {
     }
 };
 
+/******
+ * param key to Remove The Patient we have deleted from Redux Store
+ */
 export const removePatient = key => {
     return {
         type: REMOVE_PATIENT,

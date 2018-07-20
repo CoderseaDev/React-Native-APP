@@ -1,12 +1,10 @@
-import { SET_ROCHTA } from "../actions/actionTypes";
-
+import { SET_VISITOR } from "../actions/actionTypes";
 const initialState = {
     visits: []
 };
-
 const reducer = (state = initialState, action) => {
     switch (action.type) {
-        case SET_ROCHTA:
+        case SET_VISITOR:
             return {
                 ...state,
                 visits: action.visits
@@ -15,6 +13,5 @@ const reducer = (state = initialState, action) => {
             return state;
     }
 };
-
 export default reducer;
 

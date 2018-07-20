@@ -4,7 +4,6 @@ import {
     Text,
     ScrollView,
     Picker,
-    ImageBackground,
     Dimensions,
     ActivityIndicator,
     KeyboardAvoidingView, Button, Alert
@@ -186,6 +185,7 @@ class PatientProfileScreen extends Component {
         }
         this.setState({controls})
     };
+
     updateInputState = (key, value) => {
                         this.setState(prevState => {
                             return {
@@ -199,7 +199,6 @@ class PatientProfileScreen extends Component {
                                             prevState.controls[key].validationRules,
                                         ),
                                         touched: true
-
                                     }
                                 }
                             };
@@ -292,6 +291,7 @@ class PatientProfileScreen extends Component {
                     <View  style={this.state.viewMode==="portrait"
                         ? styles.portraitInputWrapper
                         : styles.landscapeInputWrapper}>
+
                     <FormInput
                         textInputRef={ref => (this.patinetNameInput = ref)}
                         inputStyle={{color: 'black'}}
