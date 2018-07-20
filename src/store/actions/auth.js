@@ -15,8 +15,8 @@ export const authSingIn = (authData) => {
         dispatch(uiStartLoading());
         axios.post(`http://codersea.com:8080/user/signin`, {
 
-                email: authData.email,
-                password: authData.password,
+                email: "b@b.com",
+                password: "123456",
 
         })
             .then(res => {
@@ -29,7 +29,8 @@ export const authSingIn = (authData) => {
                 }else{
                 dispatch(authStoreToken(response.token, response.expiresIn , response.refreshToken));
                     dispatch(uiStopLoading());
-                startMainTabs();
+                      startMainTabs();
+                    dispatch(uiStartLoading());
                     ToastAndroid.show('You Have Logged In!', ToastAndroid.LONG);
                 }
             })
@@ -50,8 +51,6 @@ export const authStoreToken = (token, expiresIn, refreshToken) => {
     return dispatch => {
         const now = new Date();
         const expiryDate = now.getTime() + expiresIn +1000;
-
-        console.log(now , new Date(expiryDate));
         dispatch(authSetToken(token, expiryDate));
         AsyncStorage.setItem("ap:auth:token", token);
         AsyncStorage.setItem("ap:auth:expiryDate", expiryDate.toString());
@@ -139,6 +138,7 @@ export const authAutoSignIn = () => {
         dispatch(authGetToken())
             .then(token => {
                 startMainTabs();
+                dispatch(uiStartLoading());
             })
             .catch(err => console.log("Failed to fetch token!"));
     };
