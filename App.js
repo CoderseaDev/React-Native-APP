@@ -84,15 +84,10 @@ Navigation.registerComponent(
     Provider
 );
 
-
-
-
-
 //Start a App
 export default () => Navigation.startSingleScreenApp({
     screen: {
         screen: "Medical.AuthScreen",
-     //   title: "Login Screen"
     },
 
 });

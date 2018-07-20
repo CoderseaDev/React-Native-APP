@@ -1,8 +1,10 @@
+
 import React, {Component} from 'react';
 import {StyleSheet, FlatList , ScrollView} from 'react-native';
 import ListItem1 from '../ListItem/ListItem1';
 import {createFilter} from 'react-native-search-filter';
 import {Header, Item, Input, Icon} from 'native-base';
+
 class PatientProfileList extends Component {
     constructor(props) {
         super(props);
@@ -27,7 +29,7 @@ class PatientProfileList extends Component {
     showsVerticalScrollIndicator={false}
     showsHorizontalScrollIndicator={false}
 >
-        <Header searchBar rounded style={{backgroundColor: '#000000'}}>
+        <Header searchBar rounded style={styles.SearchBar}>
             <Item>
                 <Icon name="ios-search" />
                 <Input
@@ -46,6 +48,9 @@ class PatientProfileList extends Component {
     }
 }
 const styles = StyleSheet.create({
+    SearchBar:
+        {
+        backgroundColor: '#000000'},
     listContainer: {
         width: "100%"
     },

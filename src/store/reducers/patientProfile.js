@@ -1,10 +1,8 @@
 import { SET_PATIENT , START_ADD_PATIENT , PATIENT_ADDED, REMOVE_PATIENT } from "../actions/actionTypes";
-
 const initialState = {
     patients: [],
     patientAdded: false,
 };
-
 const reducer = (state = initialState, action) => {
     switch (action.type) {
         case SET_PATIENT:

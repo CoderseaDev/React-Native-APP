@@ -2,7 +2,7 @@ import React ,{Component} from 'react';
 import {View , Text} from 'react-native';
 import {connect} from 'react-redux';
 import VisitorsList from '../../components/VisitorsList/VisitorsList';
-import { getRochta } from "../../store/actions/index";
+import { getVisitor } from "../../store/actions/index";
 
 
 class VisitorDataScreen extends Component{
@@ -94,7 +94,7 @@ const mapStateToProps = state =>{
 
 const mapDispatchToProps = dispatch=>{
     return{
-        onLoadVisits :(pkey1)=> dispatch(getRochta(pkey1))
+        onLoadVisits :(pkey1)=> dispatch(getVisitor(pkey1))
     };
 };
 export default connect(mapStateToProps , mapDispatchToProps) (VisitorDataScreen);
