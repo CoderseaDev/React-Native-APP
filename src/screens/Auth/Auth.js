@@ -3,7 +3,7 @@ import {View , StyleSheet ,ImageBackground , Dimensions , KeyboardAvoidingView ,
 import  DefaultInput from "../../components/UI/DefaultInput/DefaultInput";
 import HeadingText from "../../components/UI/HeadingText/HeadingText";
 import MainText from "../../components/UI/MainText/MainText";
-
+import OfflineNotice from "../../components/OfflineNotice/OffilneNotice";
 import backgroundImage from "../../assets/darkone.jpg";
 import { Input, Button } from 'react-native-elements'
 
@@ -132,8 +132,11 @@ class AuthScreen extends Component{
             submitButton1 = <ActivityIndicator/>;
 
         }
+
+
         return(
             <ImageBackground source={backgroundImage}   style={styles.backgroundImage}>
+                    <OfflineNotice/>
                 <KeyboardAvoidingView
                     style={styles.container}
                     behavior="padding"

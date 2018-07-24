@@ -5,7 +5,8 @@ import App from "../../../App";
 import startMainTabs from '../../screens/MainTabs/startMainTabs';
 import axios from 'axios';
 import {ToastAndroid} from 'react-native';
-
+import OfflineNotice from "../../components/OfflineNotice/OffilneNotice";
+import MiniOfflineSign from "../../components/OfflineNotice/OffilneNotice";
 /********
  * @param authData to talk to The email And Pass UI
  */
@@ -13,6 +14,10 @@ export const authSingIn = (authData) => {
 
     return dispatch => {
         dispatch(uiStartLoading());
+
+        if(OfflineNotice){
+            dispatch(uiStopLoading());
+        }
         axios.post(`http://codersea.com:8080/user/signin`, {
 
                 email: "b@b.com",
