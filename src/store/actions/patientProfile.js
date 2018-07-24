@@ -120,7 +120,7 @@ export const getPatient = () => {
 
                 if(response.message) {
                     Alert.alert(
-                        'Expire Date',
+                        'Error',
                         'Your Session is Expired , You Will Go To Login Page',
                         [
                             {text: 'OK', onPress: () => dispatch(authLogout())},
