@@ -20,8 +20,8 @@ export const authSingIn = (authData) => {
         }
         axios.post(`http://codersea.com:8080/user/signin`, {
 
-                email: "b@b.com",
-                password: "123456",
+                email: authData.email,
+                password: authData.password,
 
         })
             .then(res => {
