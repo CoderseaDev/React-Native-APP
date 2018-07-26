@@ -14,15 +14,13 @@ export const authSingIn = (authData) => {
 
     return dispatch => {
         dispatch(uiStartLoading());
-
         if(OfflineNotice){
             dispatch(uiStopLoading());
         }
+        dispatch(uiStartLoading());
         axios.post(`http://codersea.com:8080/user/signin`, {
-
                 email: authData.email,
                 password: authData.password,
-
         })
             .then(res => {
                 const response = JSON.parse(res.request._response);
@@ -40,7 +38,7 @@ export const authSingIn = (authData) => {
                 }
             })
             .catch((err) => {
-                alert(err.response.data.message)
+                alert(err.response.data.message);
                 dispatch(uiStopLoading());
             });
 
