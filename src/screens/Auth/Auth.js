@@ -6,7 +6,6 @@ import MainText from "../../components/UI/MainText/MainText";
 import OfflineNotice from "../../components/OfflineNotice/OffilneNotice";
 import backgroundImage from "../../assets/darkone.jpg";
 import { Input, Button } from 'react-native-elements'
-
 import validate from "../../utility/validation";
 import {connect} from 'react-redux';
 import {authSingIn , authAutoSignIn} from '../../store/actions/index';
@@ -100,7 +99,6 @@ class AuthScreen extends Component{
                             prevState.controls[key].validationRules,
                         ),
                         touched: true
-
                     }
                 }
             };
@@ -147,7 +145,7 @@ class AuthScreen extends Component{
                             <DefaultInput
                                 placeholder="Your E-mail address"
                                 placeholderTextColor="white"
-                                         style={styles.input}
+                                          style={styles.input}
                                           value={this.state.controls.email.value}
                                           onChangeText={val=>this.updateInputState("email",val)}
                                           valid={this.state.controls.email.valid}
@@ -246,7 +244,6 @@ const mapStateToProps = state =>{
 const mapDispatchToProps = dispatch=>{
     return{
         onTryAuth:(authData , authMode)=> dispatch(authSingIn(authData, authMode)),
-
         onAutoSignIn:()=> dispatch(authAutoSignIn())
     };
 };
