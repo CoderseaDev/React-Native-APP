@@ -27,8 +27,9 @@ export const authSingIn = (authData) => {
                 console.log(response);
 
                 if(!response.token){
-                    console.log("Auth Failed");
-                    alert("Auth Failed")
+                    console.log("Authentication Failed");
+                    alert("Auth Failed");
+                    dispatch(uiStopLoading());
                 }else{
                 dispatch(authStoreToken(response.token, response.expiresIn , response.refreshToken));
                     dispatch(uiStopLoading());
@@ -39,8 +40,10 @@ export const authSingIn = (authData) => {
             })
             .catch((err) => {
                 alert(err.response.data.message);
+                console.log(err.response.data.message)
                 dispatch(uiStopLoading());
             });
+
 
 
     }
@@ -106,7 +109,6 @@ export const authGetToken = () => {
             }
         });
         return promise
-
             .catch(err => {
                 return AsyncStorage.getItem("ap:auth:refreshToken")
                     .then(refreshToken => {
