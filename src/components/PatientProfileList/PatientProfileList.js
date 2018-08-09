@@ -9,7 +9,7 @@ class PatientProfileList extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            KEYS_TO_FILTERS: ['patientName', 'patientId'],
+            KEYS_TO_FILTERS: ['patientName', 'patientId' , 'surName'],
             search: '',
         };
     }
@@ -18,6 +18,7 @@ class PatientProfileList extends Component {
     }
     renderItem = ({ item }) => (
         <ListItem1 patientName={item.patientName}
+                   surName ={item.surName}
                    patientId={item.patientId}
                    onItemPressed={() => this.props.onItemSelected(item._id)}
                    onAddPressed={() => this.props.onAddVisit(item._id)}
@@ -34,7 +35,7 @@ class PatientProfileList extends Component {
                 <Icon name="ios-search" />
                 <Input
                     onChangeText={(term)=>{this.searchUpdated(term)}}
-                    placeholder="Search" />
+                    placeholder="Search For Patients / ID " />
                 <Icon name="ios-people" />
             </Item>
         </Header>
