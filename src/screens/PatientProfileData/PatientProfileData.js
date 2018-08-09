@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import PatientProfileList from '../../components/PatientProfileList/PatientProfileList';
 import {getPatient} from "../../store/actions/index";
-import {StyleSheet, View, ScrollView, TouchableOpacity , ActivityIndicator} from 'react-native';
+import {StyleSheet, View, ScrollView, TouchableOpacity , ActivityIndicator , Text} from 'react-native';
 
 
 import SearchInput, {createFilter} from 'react-native-search-filter';
@@ -52,7 +52,7 @@ class SearchPatientProfileDataScreen extends Component {
 
         this.props.navigator.push({
             screen: "Medical.PatientProfileDataDetailsScreen",
-            title: selPatient.patientName,
+            title: `${selPatient.patientName}${selPatient.surName}`,
             passProps: {
                 selectedPatient: selPatient
             },
@@ -82,30 +82,27 @@ class SearchPatientProfileDataScreen extends Component {
 
 
     render() {
-
            if (this.props.isLoading) {
-               return (
-                   <ActivityIndicator
-                       animating={true}
-                       style={styles.indicator}
-                       size="large"
-                   />
-               );
-           }
+            return (
+                <ActivityIndicator
+                    animating={true}
+                    style={styles.indicator}
+                    size="large"
+                />
+            );
+        }
 
         let viewButton = (
             <View>
-
                 <PatientProfileList patients={this.props.patients} onItemSelected={this.itemSelectedHandler}
                                     onAddVisit={this.addVisitHandler}/>
-
             </View>
         );
 
         return (
 
 <View>
-            {viewButton}
+    {viewButton}
 </View>
         );
     }

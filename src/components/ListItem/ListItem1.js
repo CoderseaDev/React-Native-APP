@@ -13,9 +13,9 @@ const listItem1 = (props) => (
             <TouchableOpacity  onPress={props.onAddPressed}>
             <View style={styles.ViewButton}>
                 <View style={styles.ViewIconWithText}>
-                <Text size={10}>Add Visitor</Text>
+                <Text size={10}>Add Visit</Text>
             <Icon
-                name='md-contacts'
+                name='md-clipboard'
                 color='gray'
                 size={20}
                 style={styles.IconStyle}
@@ -31,6 +31,7 @@ const listItem1 = (props) => (
                 <View style={{paddingHorizontal: 2}}/>
                 <Text>-</Text>
                 <Text style={styles.ratingText}>{props.patientName}</Text>
+                <Text style={styles.ratingText1}>{props.surName}</Text>
             </View>
             </TouchableOpacity>
 
@@ -63,9 +64,14 @@ const styles = StyleSheet.create({
         paddingTop: 5
     },
     ratingText: {
-        paddingLeft: 10,
+        paddingLeft: 8,
+        color: 'grey'
+    },
+    ratingText1: {
+        paddingLeft: 3,
         color: 'grey'
     }
+
 });
 
 export default listItem1;

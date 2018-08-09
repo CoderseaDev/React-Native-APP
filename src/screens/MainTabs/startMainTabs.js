@@ -11,8 +11,8 @@ const startTabs =()=> {
                 tabs: [
                     {
                         screen: "Medical.SearchPatientProfileDataScreen",
-                        label: "Patients Data",
-                        title: "Patients Data",
+                        label: "Patients Search",
+                        title: "Patients Search",
                       icon: sources[0],
                         navigatorButtons:{
                             leftButtons :[

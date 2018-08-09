@@ -120,10 +120,10 @@ export const getPatient = () => {
 
                 if(response.message) {
                     Alert.alert(
-                        'Error',
-                        'Your Session is Expired , You Will Go To Login Page',
+                        'No Patients',
+                        'No Patients Data To Search Please Go To Add Patients Screen And Add One , Thanks',
                         [
-                            {text: 'OK', onPress: () => dispatch(authLogout())},
+                            {text: 'OK', /*onPress: () => dispatch(PatientProfileScreen())*/},
                         ],
                         { cancelable: false }
                     )

@@ -19,8 +19,8 @@ export const authSingIn = (authData) => {
         }
         dispatch(uiStartLoading());
         axios.post(`http://codersea.com:8080/user/signin`, {
-                email: authData.email,
-                password: authData.password,
+                email: "test@test.com",
+                password: "123456",
         })
             .then(res => {
                 const response = JSON.parse(res.request._response);

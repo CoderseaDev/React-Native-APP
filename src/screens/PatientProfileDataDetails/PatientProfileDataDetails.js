@@ -209,7 +209,7 @@ class PatientProfileDataDetailsScreen extends Component {
         let updateButton = (
 
             <Button
-                title="Update Patients"
+                title="Save"
                 onPress={() => Alert.alert(
                     'Alert',
                     'Do You Want Update This Patient ?',
@@ -231,7 +231,7 @@ class PatientProfileDataDetailsScreen extends Component {
 
             <Button
                 color="#841584"
-                title="Visitors History"
+                title="Visits History"
                      onPress={this.goToVisitHistory} />
         );
 
