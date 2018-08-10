@@ -7,7 +7,7 @@ import { getVisitor } from "../../store/actions/index";
 
 class VisitorDataScreen extends Component{
     static navigatorStyle = {
-        navBarButtonColor: "#1E90FF"
+        navBarButtonColor: "#000000"
     };
 
 
@@ -23,24 +23,34 @@ class VisitorDataScreen extends Component{
 
 
 
-   /*  componentDidMount() {
-         this.props.onLoadVisits();
-     }*/
 
-    componentDidMount(){
 
-    this.props.onLoadVisits(
-        this.props.pkey1
-    );
+
+
+
+    onNavigatorEvent = event => {
+        if (event.type === "ScreenChangedEvent") {
+            if (event.id === "willAppear") {
+                this.props.onLoadVisits(this.props.pkey1);
+            }
+
         }
 
-    /*componentWillUpdate(){
-        this.props.onLoadVisits();
-    }*/
+// to show the sideDrawer
+        if (event.type === "NavBarButtonPress") {
+            if (event.id === "sideDrawerToggle") {
+                this.props.navigator.toggleDrawer({
+                    side: "left"
+                });
+            }
+        }
+    };
 
 
 
-    onNavigatorEvent = event =>{
+
+
+   /* onNavigatorEvent = event =>{
 // to load visitor data screen all the time we don't need to refresh
                 this.props.onLoadVisits(this.props.pkey1);
 
@@ -52,7 +62,7 @@ class VisitorDataScreen extends Component{
                 });
             }
         }
-    };
+    };*/
 
  // to return the key of the visit data
     itemSelectedHandler=key=>{

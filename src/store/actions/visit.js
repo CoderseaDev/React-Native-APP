@@ -2,7 +2,7 @@ import {uiStartLoading, uiStopLoading} from './index';
 import {SET_VISITOR} from "./actionTypes";
 import {ToastAndroid} from 'react-native';
 import axios from 'axios';
-
+import {Alert} from 'react-native'
 /*************
  * This CONST Add Visitors To The Patient ,
  * @params pkey => to Catch The its Already The Patient We Need To Add The Visitors To it Or Not
@@ -64,8 +64,22 @@ export const getVisitor = (pkey1) => {
                 const response = JSON.parse(res.request._response).visits_info;
                console.log("Get Visit",response);
 
-                dispatch(setVisitor(response));
-                console.log(response)
+                if([]) {
+                    Alert.alert(
+                        'Empty Visits History',
+                        'No Visits History for This Patient Until Now',
+                        [
+                            {text: 'OK'},
+                        ],
+                        { cancelable: false }
+                    )
+                }else{
+                    dispatch(setVisitor(response));
+                    console.log(response)
+                }
+
+
+
             })
             .catch((err) => {
                 console.log(err.response.data);

@@ -10,8 +10,12 @@ import {
     KeyboardAvoidingView,
     Alert,
     ActivityIndicator,
+    TouchableOpacity,
+
 Button
 } from "react-native";
+import ActionButton from 'react-native-action-button';
+import Icon from 'react-native-vector-icons/Ionicons';
 import DatePicker from 'react-native-datepicker';
 import {connect} from "react-redux";
 
@@ -188,7 +192,7 @@ class PatientProfileDataDetailsScreen extends Component {
 
         this.props.navigator.push({
             screen: 'Medical.VisitorDataScreen',
-            title: 'Visit History',
+            title: 'Visits History',
             passProps: {
                 pkey1: selPatientToReturnVisitors
             }
@@ -206,7 +210,7 @@ class PatientProfileDataDetailsScreen extends Component {
 
     render() {
 
-        let updateButton = (
+      /*  let updateButton = (
 
             <Button
                 title="Save"
@@ -225,10 +229,9 @@ class PatientProfileDataDetailsScreen extends Component {
         );
         if (this.props.isLoading) {
             updateButton = <ActivityIndicator/>;
-        }
+        }*/
 
-        let goToVisitButton = (
-
+       /* let goToVisitButton = (
             <Button
                 color="#841584"
                 title="Visits History"
@@ -252,7 +255,7 @@ class PatientProfileDataDetailsScreen extends Component {
 
 
             />
-        );
+        );*/
         return (
 
 
@@ -262,8 +265,10 @@ class PatientProfileDataDetailsScreen extends Component {
             <KeyboardAvoidingView style={
                 styles.container}>
 
+
             <ScrollView showsVerticalScrollIndicator={false}
                         showsHorizontalScrollIndicator={false}>
+
 
                 <View style={this.state.viewMode==="portrait"
                     ? styles.portraitInputContainer
@@ -573,17 +578,58 @@ class PatientProfileDataDetailsScreen extends Component {
                             </FormInput>
                         </View>
 
-                {updateButton}
+                {/*{updateButton}
                 <View style={{paddingVertical: 5}}/>
                 {goToVisitButton}
                 <View style={{paddingVertical: 5}}/>
-                {deleteButton}
+                {deleteButton}*/}
 
 
 
 
 
             </ScrollView>
+                    <ActionButton autoInactive={false} buttonColor='#3498db' color='black' >
+
+                        <ActionButton.Item buttonColor='#1abc9c' onPress={() => Alert.alert(
+                            'Alert',
+                            'Do You Want Update This Patient ?',
+                            [
+                                {text: 'Cancel', onPress: () => console.log('Update Pressed!')},
+                                {text: 'OK', onPress: this.patientUpdatedHandler},
+                            ],
+                            { cancelable: false }
+                        )}>
+
+                            <Icon name="md-cloud-upload" style={styles.addButtonText} />
+                            {this.props.isLoading
+                                ?<ActivityIndicator color="#000"/>
+                                :<Text>SAVE</Text>}
+
+                        </ActionButton.Item>
+
+
+
+                        <ActionButton.Item buttonColor='#9b59b6' title="Visits History" onPress={this.goToVisitHistory}>
+                            <Icon name="md-filing" style={styles.addButtonText} />
+                        </ActionButton.Item>
+
+                        <ActionButton.Item buttonColor='#DC143C' title="Delete"  onPress={() => Alert.alert(
+                            'Alert',
+                            'You Want Delete This Patient ?',
+                            [
+                                {text: 'Cancel', onPress: () => console.log('Cancel Pressed!')},
+                                {text: 'OK', onPress: this.patientDeletedHandler},
+                            ],
+                            { cancelable: false }
+                        )}
+                        >
+                            <Icon name="md-trash" style={styles.addButtonText} />
+                        </ActionButton.Item>
+
+                    </ActionButton>
+
+
             </KeyboardAvoidingView>
         );
     }
@@ -655,7 +701,45 @@ const styles = StyleSheet.create({
     },
     inputContainer:{
         width:"80%",
-    }
+    },
+    addButtonText: {
+        color: '#000',
+        fontSize: 30
+    },
+
+    buttonText: {
+        color: '#000',
+        fontSize: 15
+    },
+    addButton: {
+        position: 'absolute',
+        zIndex: 11,
+        right: 20,
+       // bottom: 90,
+        backgroundColor: '#1E90FF',
+        width: 70,
+        height: 70,
+        borderRadius: 35,
+        alignItems: 'center',
+        justifyContent: 'center',
+        elevation: 8,
+
+    },
+    addButton1: {
+        position: 'absolute',
+        zIndex: 11,
+        right: 20,
+        top: 10,
+        backgroundColor: '#E91E63',
+        width: 70,
+        height: 70,
+        borderRadius: 35,
+        alignItems: 'center',
+        justifyContent: 'center',
+        elevation: 8,
+
+    },
+
 
 });
 

@@ -18,9 +18,11 @@ class PickImage extends  Component{
                     pickedImage:{uri: res.uri}
                 });
             }
-                this.props.onImagePicked(res);
+                    this.props.onImagePicked(res);
+            console.log(res.error);
         });
-    };
+
+          };
         render(){
             return(
 
