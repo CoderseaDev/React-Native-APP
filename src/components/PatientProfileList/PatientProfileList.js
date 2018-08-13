@@ -1,21 +1,36 @@
 
 import React, {Component} from 'react';
-import {StyleSheet, FlatList , ScrollView} from 'react-native';
+import {Animated,StyleSheet, FlatList , ScrollView , Dimensions , RefreshControl , ActivityIndicator , View , RefresherListView} from 'react-native';
 import ListItem1 from '../ListItem/ListItem1';
 import {createFilter} from 'react-native-search-filter';
 import {Header, Item, Input, Icon} from 'native-base';
+import {connect} from 'react-redux';
 
+import Spinner from 'react-native-loading-spinner-overlay';
 class PatientProfileList extends Component {
     constructor(props) {
         super(props);
         this.state = {
             KEYS_TO_FILTERS: ['patientName', 'patientId' , 'surName'],
             search: '',
+            refreshing: false,
+            visible: false
         };
+    }
+    componentDidMount() {
+        setInterval(() => {
+            this.setState({
+                visible: !this.state.visible
+            });
+        }, 3000);
     }
     searchUpdated(term) {
         this.setState({search: term})
     }
+
+
+
+
     renderItem = ({ item }) => (
         <ListItem1 patientName={item.patientName}
                    surName ={item.surName}
@@ -24,12 +39,38 @@ class PatientProfileList extends Component {
                    onAddPressed={() => this.props.onAddVisit(item._id)}
         />
     );
+
+
+
+    _onRefresh = () => {
+        this.setState({refreshing: true});
+
+        setTimeout(() => {
+            this.setState({refreshing: false})
+        }, 10)
+
+    };
+
+
     render() {
+
+
         return (
+
 <ScrollView
     showsVerticalScrollIndicator={false}
     showsHorizontalScrollIndicator={false}
+   // onScroll ={(e)=>this.onScroll(e)}
+    onScroll={
+        Animated.event(
+            [{ nativeEvent: { contentOffset: { x: this.animVal } } }]
+        )}
+
+
 >
+
+
+
         <Header searchBar rounded style={styles.SearchBar}>
             <Item>
                 <Icon name="ios-search" />
@@ -57,5 +98,6 @@ const styles = StyleSheet.create({
     },
 
 });
+
 
 export default PatientProfileList;

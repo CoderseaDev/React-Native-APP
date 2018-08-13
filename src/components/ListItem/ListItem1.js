@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, StyleSheet, TouchableOpacity, Text} from 'react-native';
+import {View, StyleSheet, TouchableOpacity, Text , TouchableHighlight} from 'react-native';
 import { ListItem ,} from 'react-native-elements'
 import Icon from 'react-native-vector-icons/Ionicons';
 
@@ -30,7 +30,7 @@ const listItem1 = (props) => (
                 <Text >{props.patientId}</Text>
                 <View style={{paddingHorizontal: 2}}/>
                 <Text>-</Text>
-                <Text style={styles.ratingText}>{props.patientName}</Text>
+                <TouchableHighlight style={styles.ratingText}>{props.patientName}</TouchableHighlight>
                 <Text style={styles.ratingText1}>{props.surName}</Text>
             </View>
             </TouchableOpacity>

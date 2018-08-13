@@ -282,7 +282,7 @@ class PatientProfileDataDetailsScreen extends Component {
                                 autoCorrect={true}
                                 keyboardType="default"
                                 onChangeText={val=>this.updateInputState("patientName",val)}
-                                inputStyle={{color: 'black'}}
+                                inputStyle={{color: 'black' ,fontSize: 20 }}
                                 valid={this.state.controls.patientName.valid}
                                 onSubmitEditing={() => {
                                     this.surnameInput.focus()
@@ -301,7 +301,7 @@ class PatientProfileDataDetailsScreen extends Component {
                             <FormInput
                                 autoCorrect={true}
                                 keyboardType="default"
-                                inputStyle={{color: 'black'}}
+                                inputStyle={{color: 'black',fontSize: 20}}
                                 onChangeText={val=>this.updateInputState("surName",val)}
                                 valid={this.state.controls.surName.valid}
                                 textInputRef={ref => (this.surnameInput = ref)}
@@ -325,7 +325,7 @@ class PatientProfileDataDetailsScreen extends Component {
                     <FormInput
                         autoCorrect={true}
                         keyboardType="email-address"
-                        inputStyle={{color: 'black'}}
+                        inputStyle={{color: 'black' ,fontSize: 20}}
                         onChangeText={val=>this.updateInputState("email",val)}
                         valid={this.state.controls.email.valid}
                         textInputRef={ref => (this.emailInput = ref)}
@@ -344,7 +344,7 @@ class PatientProfileDataDetailsScreen extends Component {
                     <FormLabel>Mobile No:</FormLabel>
                     <FormInput
                         keyboardType="phone-pad"
-                        inputStyle={{color: 'black'}}
+                        inputStyle={{color: 'black' ,fontSize: 20}}
                         onChangeText={val=>this.updateInputState("mobileNo",val)}
                         textInputRef={ref => (this.mobileNoInput = ref)}
                         onSubmitEditing={() => {
@@ -368,7 +368,7 @@ class PatientProfileDataDetailsScreen extends Component {
                                 autoCorrect={true}
                                 keyboardType="numeric"
                                 textInputRef={ref => (this.heightInput = ref)}
-                                inputStyle={{color: 'black'}}
+                                inputStyle={{color: 'black',fontSize: 20}}
                                 onChangeText={this.heightChangeHandler}
                                 onSubmitEditing={() => {
                                     this.weightInput.focus()
@@ -385,7 +385,7 @@ class PatientProfileDataDetailsScreen extends Component {
                             <FormInput
                                 autoCorrect={true}
                                 keyboardType="numeric"
-                                inputStyle={{color: 'black'}}
+                                inputStyle={{color: 'black',fontSize: 20}}
                                 onChangeText={this.weightChangeHandler}
 
                                 textInputRef={ref => (this.weightInput = ref)}
@@ -409,7 +409,7 @@ class PatientProfileDataDetailsScreen extends Component {
                             <FormInput
                                 autoCorrect={true}
                                 keyboardType="default"
-                                inputStyle={{color: 'black'}}
+                                inputStyle={{color: 'black',fontSize: 20}}
                                 onChangeText={this.bloodTypeChangeHandler}
                                 textInputRef={ref => (this.bloodTypeInput = ref)}
                                 onSubmitEditing={() => {
@@ -428,7 +428,7 @@ class PatientProfileDataDetailsScreen extends Component {
                             <FormInput
                                 autoCorrect={true}
                                 keyboardType="default"
-                                inputStyle={{color: 'black'}}
+                                inputStyle={{color: 'black',fontSize: 20}}
                                 onChangeText={this.complaintChangeHandler}
                                 textInputRef={ref => (this.complaintInput = ref)}
                                 onSubmitEditing={() => {
@@ -451,7 +451,7 @@ class PatientProfileDataDetailsScreen extends Component {
                             <FormInput
 
                                 keyboardType="phone-pad"
-                                inputStyle={{color: 'black'}}
+                                inputStyle={{color: 'black',fontSize: 20}}
                                 onChangeText={this.homeNoChangeHandler}
 
                                 textInputRef={ref => (this.homeNoInput = ref)}
@@ -467,7 +467,7 @@ class PatientProfileDataDetailsScreen extends Component {
                             <FormInput
                                 autoCorrect={true}
                                 keyboardType="default"
-                                inputStyle={{color: 'black'}}
+                                inputStyle={{color: 'black',fontSize: 20}}
                                 onChangeText={this.addressNoChangeHandler}
                                 textInputRef={ref => (this.addressInput = ref)}
 
@@ -499,8 +499,12 @@ class PatientProfileDataDetailsScreen extends Component {
                     <View  style={this.state.viewMode==="portrait"
                         ? styles.portraitInputWrapper
                         : styles.landscapeInputWrapper}>
+                        <Text style={{textAlign: 'center'}} >Date Of Birth</Text>
                             <DatePicker
-                                style={{width: 220 }}
+                                style={this.state.viewMode==="portrait"
+                                    ? styles.portraitDateWrapper
+                                    : styles.landscapeDateWrapper}
+
                                 date={this.props.selectedPatient.date}
                                 mode="date"
                                 placeholder="select date"
@@ -536,7 +540,7 @@ class PatientProfileDataDetailsScreen extends Component {
                             <FormInput
                                 autoCorrect={true}
                                 keyboardType="default"
-                                inputStyle={{color: 'black'}}
+                                inputStyle={{color: 'black',fontSize: 20}}
                                 onChangeText={this.contactNameChangeHandler}
 
                                 onSubmitEditing={() => {
@@ -554,7 +558,7 @@ class PatientProfileDataDetailsScreen extends Component {
                             <FormInput
                                 autoCorrect={true}
                                 keyboardType="default"
-                                inputStyle={{color: 'black'}}
+                                inputStyle={{color: 'black',fontSize: 20}}
                                 onChangeText={this.contactRelationshipChangeHandler}
                                 textInputRef={ref => (this.contactRelInput = ref)}
                                 onSubmitEditing={() => {
@@ -570,7 +574,7 @@ class PatientProfileDataDetailsScreen extends Component {
                             <FormInput
                                 autoCorrect={true}
                                 keyboardType="phone-pad"
-                                inputStyle={{color: 'black'}}
+                                inputStyle={{color: 'black',fontSize: 20}}
                                 onChangeText={this.contactPhoneNoChangeHandler}
                                 textInputRef={ref => (this.contactPhoneInput = ref)}
                             >
@@ -739,6 +743,13 @@ const styles = StyleSheet.create({
         elevation: 8,
 
     },
+    portraitDateWrapper:{
+        width:325
+    },
+    landscapeDateWrapper:{
+        width:225,
+        paddingVertical: 10
+    }
 
 
 });
