@@ -5,7 +5,7 @@ import HeadingText from "../../components/UI/HeadingText/HeadingText";
 import MainText from "../../components/UI/MainText/MainText";
 import OfflineNotice from "../../components/OfflineNotice/OffilneNotice";
 import backgroundImage from "../../assets/darkone.jpg";
-import { Input, Button } from 'react-native-elements'
+import { Input, Button } from 'react-native-elements';
 import validate from "../../utility/validation";
 import {connect} from 'react-redux';
 import {authSingIn , authAutoSignIn} from '../../store/actions/index';

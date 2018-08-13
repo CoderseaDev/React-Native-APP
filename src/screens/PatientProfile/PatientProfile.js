@@ -70,7 +70,7 @@ class PatientProfileScreen extends Component {
             bloodType: {value: '', touched: false, valid: false,},
             complaint: {value: '', touched: false, valid: false,},
             date: {
-                value: null,
+                value: new Date(),
                 valid: false,
             },
             homeNo: {value: '', touched: false,  valid: false,},
@@ -136,6 +136,7 @@ class PatientProfileScreen extends Component {
         }
         this.setState({controls})
     };
+
     dateChangeHandler = date => {
         this.setState(prevState => {
             return {
@@ -250,11 +251,9 @@ class PatientProfileScreen extends Component {
         let saveButton = (
             <Button
                 title="Save!"
-
-
                 color="#000000"
                 disabled={
-                    !this.state.controls.patientName.valid ||!this.state.controls.surName.valid|| !this.state.controls.email.valid || !this.state.controls.mobileNo.valid
+                    !this.state.controls.patientName.valid || !this.state.controls.mobileNo.valid
                 }
 
 
@@ -524,6 +523,7 @@ class PatientProfileScreen extends Component {
                             <View  style={this.state.viewMode==="portrait"
                                 ? styles.portraitInputWrapper
                                 : styles.landscapeInputWrapper}>
+                                <Text style={{textAlign: 'center'}} >Date Of Birth</Text>
                     <DatePicker
                         style={this.state.viewMode==="portrait"
                             ? styles.portraitDateWrapper
@@ -539,7 +539,7 @@ class PatientProfileScreen extends Component {
                         cancelBtnText="Cancel"
                         customStyles={{
                             dateIcon: {
-                                position: 'absolute',
+                                    position: 'absolute',
                                 left: 0,
                                 top: 4,
                                 marginLeft: 0

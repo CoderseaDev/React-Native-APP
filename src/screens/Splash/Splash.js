@@ -1,3 +1,4 @@
+/*
 
 
 
@@ -43,3 +44,4 @@ export default SplashScreen;
 
 
 
+*/

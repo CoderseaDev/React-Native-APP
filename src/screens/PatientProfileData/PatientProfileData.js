@@ -4,7 +4,7 @@ import PatientProfileList from '../../components/PatientProfileList/PatientProfi
 import {getPatient} from "../../store/actions/index";
 import {StyleSheet, View, ScrollView, TouchableOpacity , ActivityIndicator , Text} from 'react-native';
 
-
+import * as Progress from 'react-native-progress';
 import SearchInput, {createFilter} from 'react-native-search-filter';
 const KEYS_TO_FILTERS = ['user.name', 'subject', 'patientName'];
 ///////////ELmAFROD DY Htb2a El Search Page
@@ -52,7 +52,7 @@ class SearchPatientProfileDataScreen extends Component {
 
         this.props.navigator.push({
             screen: "Medical.PatientProfileDataDetailsScreen",
-            title: `${selPatient.patientName}${selPatient.surName}`,
+            title:`${selPatient.patientName} ${selPatient.surName}`,
             passProps: {
                 selectedPatient: selPatient
             },
@@ -101,9 +101,9 @@ class SearchPatientProfileDataScreen extends Component {
 
         return (
 
-<View>
+     <View>
     {viewButton}
-</View>
+        </View>
         );
     }
 }

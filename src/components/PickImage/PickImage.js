@@ -8,19 +8,24 @@ class PickImage extends  Component{
     //maxWidth and maxHiehgt = decraise the size because when upload we need it to much faster because its smaller
     pickImageHandler=()=>{
         ImagePicker.showImagePicker({title:"Pick an Image" , maxWidth:800 , maxHeight:600}, res=>{
+            console.log('Response = ', res);
             this.setState({
                 pickedImage:{uri: res.uri}
             });
             if(res.didCancel) {
+                console.log('User Cancel: ', res.error);
             }else if(res.error){
+                console.log('ImagePicker Error: ', res.error);
             }else{
                 this.setState({
                     pickedImage:{uri: res.uri}
                 });
             }
-                this.props.onImagePicked(res);
+                    this.props.onImagePicked(res);
+            console.log(res.error);
         });
-    };
+
+          };
         render(){
             return(
 
