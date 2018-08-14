@@ -64,7 +64,7 @@ export const getVisitor = (pkey1) => {
                 const response = JSON.parse(res.request._response).visits_info;
                console.log("Get Visit",response);
 
-                if([]) {
+                if(response.length===0) {
                     Alert.alert(
                         'Empty Visits History',
                         'No Visits History for This Patient Until Now',
@@ -75,7 +75,6 @@ export const getVisitor = (pkey1) => {
                     )
                 }else{
                     dispatch(setVisitor(response));
-                    console.log(response)
                 }
 
 

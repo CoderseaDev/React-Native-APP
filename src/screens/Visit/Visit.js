@@ -35,10 +35,8 @@ class VisitScreen extends Component {
             },
 
             date: {
-                value: null,
+                value: new Date(),
                 valid: false,
-
-
             },
             image: {
                 value: null,

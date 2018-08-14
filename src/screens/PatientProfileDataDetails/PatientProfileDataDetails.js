@@ -485,7 +485,7 @@ class PatientProfileDataDetailsScreen extends Component {
                         : styles.landscapeInputWrapper}>
                             <Picker
                                 style={{marginLeft: 10,}}
-                                selectedValue={this.props.selectedPatient.gender}
+                                selectedValue={this.state.gender}
                                 onValueChange={this.genderChangeHandler}>
                                 <Picker.Item value='' label='Select Gender'/>
                                 <Picker.Item label="Male" value="male"/>
@@ -505,7 +505,7 @@ class PatientProfileDataDetailsScreen extends Component {
                                     ? styles.portraitDateWrapper
                                     : styles.landscapeDateWrapper}
 
-                                date={this.props.selectedPatient.date}
+                                date={this.state.date}
                                 mode="date"
                                 placeholder="select date"
                                 format="YYYY-MM-DD"
