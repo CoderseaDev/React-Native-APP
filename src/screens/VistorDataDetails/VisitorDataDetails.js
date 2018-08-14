@@ -21,7 +21,7 @@ class VisitorDataDetailsScreen extends Component {
         Dimensions.addEventListener("change", this.updateStyles);
     }
     static navigatorStyle = {
-        navBarButtonColor: "#1E90FF"
+        navBarButtonColor: "#000000"
     };
 
     componentWillUnmount() {

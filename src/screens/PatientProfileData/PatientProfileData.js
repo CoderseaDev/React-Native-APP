@@ -68,11 +68,10 @@ class SearchPatientProfileDataScreen extends Component {
 
         this.props.navigator.push({
             screen: 'Medical.VisitScreen',
-            title: `Add Visitor To : ${selPatient.patientName}`,
+            title: `Add Visit To : ${selPatient.patientName}`,
             passProps: {
                 pkey: selPatient
             },
-
 
         });
     };
@@ -94,7 +93,7 @@ class SearchPatientProfileDataScreen extends Component {
 
         let viewButton = (
             <View>
-                <PatientProfileList patients={this.props.patients} onItemSelected={this.itemSelectedHandler}
+                <PatientProfileList navigator={this.props.navigator} patients={this.props.patients} onItemSelected={this.itemSelectedHandler}
                                     onAddVisit={this.addVisitHandler}/>
             </View>
         );

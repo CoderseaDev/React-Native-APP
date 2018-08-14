@@ -43,7 +43,9 @@ const startTabs =()=> {
                     },
                 ],
                 tabsStyle:{
-                    tabBarSelectedButtonColor : "#000000"
+                    tabBarSelectedButtonColor : "#000000",
+                    forceTitlesDisplay: true,
+                    tabBarBackgroundColor: '#551A8B'
                 },
                 drawer :{
                     left :{
@@ -51,7 +53,9 @@ const startTabs =()=> {
                     }
                 },
                 appStyle:{
-                    tabBarSelectedButtonColor : "#000000"
+                    tabBarSelectedButtonColor : "#000000",
+                    forceTitlesDisplay: true,
+
                 },
             });
          });

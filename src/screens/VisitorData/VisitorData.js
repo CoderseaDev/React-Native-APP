@@ -1,5 +1,5 @@
 import React ,{Component} from 'react';
-import {View , Text} from 'react-native';
+import {View , ActivityIndicator} from 'react-native';
 import {connect} from 'react-redux';
 import VisitorsList from '../../components/VisitorsList/VisitorsList';
 import { getVisitor } from "../../store/actions/index";
@@ -21,13 +21,6 @@ class VisitorDataScreen extends Component{
         }
     }
 
-
-
-
-
-
-
-
     onNavigatorEvent = event => {
         if (event.type === "ScreenChangedEvent") {
             if (event.id === "willAppear") {
@@ -46,24 +39,6 @@ class VisitorDataScreen extends Component{
         }
     };
 
-
-
-
-
-   /* onNavigatorEvent = event =>{
-// to load visitor data screen all the time we don't need to refresh
-                this.props.onLoadVisits(this.props.pkey1);
-
-// to show the sideDrawer
-        if(event.type==="NavBarButtonPress"){
-            if(event.id==="sideDrawerToggle"){
-                this.props.navigator.toggleDrawer({
-                    side:"left"
-                });
-            }
-        }
-    };*/
-
  // to return the key of the visit data
     itemSelectedHandler=key=>{
         const selVisit = this.props.visits.find(visit=> {
@@ -78,17 +53,31 @@ class VisitorDataScreen extends Component{
                 selectedVisit : selVisit
             }
         });
-        console.log("show selected visit" , selVisit)
+
     };
 
 
     render(){
-        return (
-            <View>
 
+        if (this.props.isLoading) {
+            return (
+                <ActivityIndicator
+                    animating={true}
+                    style={styles.indicator}
+                    size="large"
+                />
+            );
+        }
+
+        let viewButton = (
+            <View>
                 <VisitorsList visits={this.props.visits}
                               onItemSelected={this.itemSelectedHandler}/>
-
+            </View>
+        );
+        return (
+            <View>
+                {viewButton}
             </View>
         );
 
@@ -97,7 +86,8 @@ class VisitorDataScreen extends Component{
 
 const mapStateToProps = state =>{
     return{
-        visits : state.visit.visits
+        visits : state.visit.visits,
+        isLoading: state.ui.isLoading,
     };
 };
 
