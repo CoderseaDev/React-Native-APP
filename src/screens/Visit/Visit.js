@@ -155,12 +155,12 @@ class VisitScreen extends Component {
                 color="#000000"
                 title="Add"
                 onPress={this.rochtaAddedHandler}
-                disabled={
+              /*  disabled={
                     !this.state.controls.visitorName.valid ||
                     !this.state.controls.comment.valid||
                      !this.state.controls.date.valid ||
                     !this.state.controls.image.valid
-                }
+                }*/
             />
         );
         if (this.props.isLoading) {

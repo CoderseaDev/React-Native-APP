@@ -114,10 +114,8 @@ export const getPatient = () => {
             .then(res => {
                 dispatch(uiStartLoading());
                 const response = JSON.parse(res.request._response);
+                console.log(response);
                 dispatch(uiStopLoading());
-                console.log("Get Patientsssss",response);
-
-
                 if(response.message) {
                     Alert.alert(
                         'No Patients',
@@ -129,6 +127,7 @@ export const getPatient = () => {
                     )
                 }else{
                     dispatch(setPatient(response.patients));
+
                 }
             })
             .catch((err) => {

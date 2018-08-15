@@ -6,7 +6,7 @@ import {
     Picker,
     Dimensions,
     ActivityIndicator,
-    KeyboardAvoidingView, Button, Alert
+    KeyboardAvoidingView, Button, Alert , TouchableOpacity
 } from 'react-native';
 import validate from "../../utility/validation";
 import DatePicker from 'react-native-datepicker';
@@ -20,9 +20,11 @@ class PatientProfileScreen extends Component {
         this.props.navigator.setOnNavigatorEvent(this.onNavigatorEvent);
         Dimensions.addEventListener("change" ,this.updateStyles);
     }
+    componentWillMount(){
+        this.resetValuesOfData();
 
-
-    state = {
+    }
+   /* state = {
         viewMode : Dimensions.get("window").height>500 ? "portrait": "landscape",
         gender: '',
         controls: {
@@ -43,7 +45,7 @@ class PatientProfileScreen extends Component {
                  touched: false,
             },
             email:{
-                value:"",
+                value:'',
                 valid: false,
                 validationRules:{
                     isEmail: true
@@ -81,9 +83,95 @@ class PatientProfileScreen extends Component {
             patientId: {value: ''}
         },
 
+    };*/
+    resetValuesOfData = ()=>{
+        this.setState({
+            viewMode : Dimensions.get("window").height>500 ? "portrait": "landscape",
+            gender: '',
+            controls: {
+                patientName: {
+                    value: '',
+                    valid: false,
+                    validationRules:{
+                        isName: true
+                    },
+                    touched: false ,
+                },
+                surName: {
+                    value: '',
+                    valid: false,
+                    validationRules:{
+                        isName: true
+                    },
+                    touched: false,
+                },
+                email:{
+                    value:'',
+                    valid: false,
+                    validationRules:{
+                        isEmail: true
+                    },
+                    touched: false
+                },
+                mobileNo: {
+                    value:"",
+                    valid: false,
+                    validationRules:{
+                        isPhoneNo: true
+                    },
+                    touched: false
+                },
+                height: {
+                    value: '',
+                    touched: false,
+                    valid: false,
+                    validationRules:{
+                        maxLength: 3
+                    }
+                },
+                weight: {value: '', touched: false, valid: false,},
+                bloodType: {value: '', touched: false, valid: false,},
+                complaint: {value: '', touched: false, valid: false,},
+                date: {
+                    value: new Date(),
+                    valid: false,
+                },
+                homeNo: {value: '', touched: false,  valid: false,},
+                address: {value: '', touched: false ,  valid: false,},
+                contactName: {value: '', touched: false ,  valid: false,},
+                contactRelationship: {value: '', touched: false ,  valid: false,},
+                contactPhoneNo: {value: '', touched: false ,  valid: false,},
+                patientId: {value: ''}
+            },
+        });
+
+    };
+    resetUiUxStyle=()=>{
+        this.patinetNameInput.clear();
+        this.surnameInput.clear();
+        this.heightInput.clear();
+        this.weightInput.clear();
+        this.bloodTypeInput.clear();
+        this.complaintInput.clear();
+        this.homeNoInput.clear();
+        this.mobileNoInput.clear();
+        this.addressInput.clear();
+        this.emailInput.clear();
+        this.contactNameInput.clear();
+        this.contactRelationInput.clear();
+        this.contactPhoneNoInput.clear();
+
     };
     componentWillUnmount(){
         Dimensions.removeEventListener("change",this.updateStyles);
+    }
+    componentDidUpdate() {
+        if (this.props.patientAdded) {
+            this.resetUiUxStyle();
+            this.props.navigator.switchToTab({tabIndex: 0});
+
+
+        }
     }
     updateStyles =(dims)=>{
         this.setState({
@@ -91,13 +179,6 @@ class PatientProfileScreen extends Component {
                 dims.window.height > 500 ? "portrait" : "landscape",
         });
     };
-    componentDidUpdate() {
-        if (this.props.patientAdded) {
-            this.reset();
-            this.props.navigator.switchToTab({tabIndex: 0});
-        }
-    }
-
     onNavigatorEvent = event => {
         if (event.type === "ScreenChangedEvent") {
             if (event.id === "willAppear") {
@@ -136,7 +217,6 @@ class PatientProfileScreen extends Component {
         }
         this.setState({controls})
     };
-
     dateChangeHandler = date => {
         this.setState(prevState => {
             return {
@@ -186,7 +266,6 @@ class PatientProfileScreen extends Component {
         }
         this.setState({controls})
     };
-
     updateInputState = (key, value) => {
                         this.setState(prevState => {
                             return {
@@ -200,28 +279,11 @@ class PatientProfileScreen extends Component {
                                             prevState.controls[key].validationRules,
                                         ),
                                         touched: true
-
                                     }
                                 }
                             };
                         });
                     };
-    reset=()=>{
-             this.patinetNameInput.clear();
-             this.surnameInput.clear();
-             this.heightInput.clear();
-             this.weightInput.clear();
-             this.bloodTypeInput.clear();
-             this.complaintInput.clear();
-             this.homeNoInput.clear();
-             this.mobileNoInput.clear();
-             this.addressInput.clear();
-             this.emailInput.clear();
-             this.contactNameInput.clear();
-             this.contactRelationInput.clear();
-             this.contactPhoneNoInput.clear();
-
-          };
     onSave = () => {
             this.props.onAddPatient(
                 this.state.controls.patientName.value,
@@ -241,37 +303,44 @@ class PatientProfileScreen extends Component {
                 this.state.controls.contactPhoneNo.value,
             );
 
+        this.resetValuesOfData();
+
         this.props.navigator.pop();
+
 
 
      };
 
-    render() {
 
+    render() {
         let saveButton = (
             <Button
-                title="Save!"
-                color="#000000"
+                title="Save"
+                color="#1E90FF"
                 disabled={
                     !this.state.controls.patientName.valid || !this.state.controls.mobileNo.valid
                 }
-
-
-                onPress={() => Alert.alert(
-                    'Alert',
-                    'Add This Patient ?',
-                    [
-                        {text: 'Cancel',},
-                        {text: 'OK', onPress: this.onSave},
-                    ],
-                    { cancelable: false }
-                )}
+                onPress={this.onSave}
 
             />
         );
+        let saveButton1 = (
+             <TouchableOpacity
+        style={!this.state.controls.patientName.valid || !this.state.controls.mobileNo.valid ? styles.addButtonIfDisabled : styles.addButton}
+        onPress={ this.onSave}
+        disabled={
+            !this.state.controls.patientName.valid ||
+            !this.state.controls.mobileNo.valid
+        }>
+        {this.props.isLoading
+            ?<ActivityIndicator color="#000"/>
+            :<Text style={{color : "#F8F8FF" , fontWeight: 'bold'}}>SAVE</Text>}
+             </TouchableOpacity>
+);
+
 
         if (this.props.isLoading) {
-            saveButton = <ActivityIndicator/>;
+            (saveButton) = <ActivityIndicator color="#000"/>;
         }
 
         const { PersonalStyle, } = styles;
@@ -286,6 +355,9 @@ class PatientProfileScreen extends Component {
                 <ScrollView showsVerticalScrollIndicator={false}
                             showsHorizontalScrollIndicator={false}>
 
+                    <View style={styles.button}>
+                        {saveButton}
+                    </View>
                     <View style={this.state.viewMode==="portrait"
                         ? styles.portraitInputContainer
                         : styles.landscapeInputContainer}>
@@ -300,6 +372,7 @@ class PatientProfileScreen extends Component {
                         placeholder="Patient Name"
                         value={this.state.controls.patientName}
                         onChangeText={val=>this.updateInputState("patientName",val)}
+
                         autoCapitalize="non"
                         autoCorrect={true}
                         keyboardType="default"
@@ -321,13 +394,13 @@ class PatientProfileScreen extends Component {
                         autoCorrect={true}
                         keyboardType="default"
                         inputStyle={{color: 'black'}}
-                        placeholder="Sur Name"
+                        placeholder="Family Name"
                         value={this.state.controls.surName}
                         valid={this.state.controls.surName.valid}
                         onChangeText={val=>this.updateInputState("surName",val)}
                         textInputRef={ref => (this.surnameInput = ref)}
                         onSubmitEditing={() => {
-                            this.emailInput.focus()
+                            this.mobileNoInput.focus()
                         }}
                     />
                         {this.state.controls.surName.touched && !this.state.controls.surName.valid
@@ -339,39 +412,20 @@ class PatientProfileScreen extends Component {
                     <View style={this.state.viewMode==="portrait"
                         ? styles.portraitInputContainer
                         : styles.landscapeInputContainer}>
-                    <View  style={this.state.viewMode==="portrait"
-                        ? styles.portraitInputWrapper
-                        : styles.landscapeInputWrapper}>
-                            <FormInput
-                                inputStyle={{color: 'black'}}
-                                placeholder="E-mail address"
-                                value={this.state.controls.email}
-                                onChangeText={val=>this.updateInputState("email",val)}
-                                autoCapitalize="non"
-                                autoCorrect={false}
-                                keyboardType="email-address"
-                                textInputRef={ref => (this.emailInput = ref)}
-                                onSubmitEditing={() => {
-                                    this.mobileNoInput.focus()
-                                }}
-                            />
-                            {this.state.controls.email.touched && !this.state.controls.email.valid
-                                ?<FormValidationMessage>Please Enter a Valid Email</FormValidationMessage>
-                                :null}
-                        </View>
-                    <View  style={this.state.viewMode==="portrait"
-                        ? styles.portraitInputWrapper
-                        : styles.landscapeInputWrapper}>
+                        <View  style={this.state.viewMode==="portrait"
+                            ? styles.portraitInputWrapper
+                            : styles.landscapeInputWrapper}>
                             <FormInput
 
                                 keyboardType="phone-pad"
                                 inputStyle={{color: 'black'}}
-                                placeholder="Mobile Number"
+                                placeholder="Mobile"
                                 value={this.state.controls.mobileNo}
                                 onChangeText={val=>this.updateInputState("mobileNo",val)}
+                               // onChangeText={this.mobileNoChangeHandler}
                                 textInputRef={ref => (this.mobileNoInput = ref)}
                                 onSubmitEditing={() => {
-                                    this.heightInput.focus()
+                                    this.emailInput.focus()
                                 }}
                             />
                             {this.state.controls.mobileNo.touched && !this.state.controls.mobileNo.valid
@@ -379,6 +433,29 @@ class PatientProfileScreen extends Component {
                                 :null}
 
                         </View>
+                    <View  style={this.state.viewMode==="portrait"
+                        ? styles.portraitInputWrapper
+                        : styles.landscapeInputWrapper}>
+                            <FormInput
+                                inputStyle={{color: 'black'}}
+                                placeholder="E-mail address"
+                                value={this.state.controls.email}
+
+                                onChangeText={val=>this.updateInputState("email",val)}
+                                autoCapitalize="non"
+                                autoCorrect={false}
+                                keyboardType="email-address"
+                                textInputRef={ref => (this.emailInput = ref)}
+                                onSubmitEditing={() => {
+                                    this.heightInput.focus()
+                                }}
+                            />
+                            {this.state.controls.email.touched && !this.state.controls.email.valid
+                                ?<FormValidationMessage>Please Enter a Valid Email</FormValidationMessage>
+                                :null}
+                        </View>
+
+
                     </View>
 
                     <View style={this.state.viewMode==="portrait"
@@ -523,7 +600,7 @@ class PatientProfileScreen extends Component {
                             <View  style={this.state.viewMode==="portrait"
                                 ? styles.portraitInputWrapper
                                 : styles.landscapeInputWrapper}>
-                                <Text style={{textAlign: 'center'}} >Date Of Birth</Text>
+                                <Text style={{textAlign: 'center'}} >Date</Text>
                     <DatePicker
                         style={this.state.viewMode==="portrait"
                             ? styles.portraitDateWrapper
@@ -531,6 +608,7 @@ class PatientProfileScreen extends Component {
                         date={this.state.controls.date.value}
                         mode="date"
                         placeholder="select date"
+
 
                         format="YYYY-MM-DD"
                         minDate="1993-11-30"
@@ -589,6 +667,7 @@ class PatientProfileScreen extends Component {
                         }}
                     />
                     </View>
+
                     <View>
                     <FormInput
                         keyboardType="phone-pad"
@@ -600,11 +679,12 @@ class PatientProfileScreen extends Component {
                     />
                     </View>
 
-                <View style={styles.button}>
-                    {saveButton}
-                </View>
+
 
                 </ScrollView>
+
+                    {saveButton1}
+
                 </KeyboardAvoidingView>
 
         );
@@ -692,6 +772,43 @@ const styles = {
     landscapeDateWrapper:{
         width:225,
         paddingVertical: 10
+    },
+    addButton: {
+        position: 'absolute',
+        zIndex: 11,
+        right: 30,
+         bottom: 20,
+        backgroundColor: '#1E90FF',
+        width: 55,
+        height: 55,
+        borderRadius: 35,
+        alignItems: 'center',
+        justifyContent: 'center',
+        elevation: 8,
+
+
+    },
+
+
+    addButtonIfDisabled: {
+        position: 'absolute',
+        zIndex: 11,
+        right: 30,
+        bottom: 20,
+        backgroundColor: '#D3D3D3',
+        width: 55,
+        height: 55,
+        borderRadius: 35,
+        alignItems: 'center',
+        justifyContent: 'center',
+        elevation: 8,
+
+
+    },
+
+    addButtonText: {
+        color: '#fff',
+        fontSize: 24
     }
 };
 

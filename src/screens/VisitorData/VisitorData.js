@@ -1,5 +1,5 @@
 import React ,{Component} from 'react';
-import {View , ActivityIndicator} from 'react-native';
+import {View , ActivityIndicator ,TouchableOpacity, Text , StyleSheet  , KeyboardAvoidingView} from 'react-native';
 import {connect} from 'react-redux';
 import VisitorsList from '../../components/VisitorsList/VisitorsList';
 import { getVisitor } from "../../store/actions/index";
@@ -46,6 +46,8 @@ class VisitorDataScreen extends Component{
             return visit._id === key;
         });
 
+
+
         this.props.navigator.push({
             screen :"Medical.VisitorDataDetailsScreen",
             title : selVisit.name ,
@@ -56,44 +58,117 @@ class VisitorDataScreen extends Component{
 
     };
 
+    pic = ()=>{
 
+
+        console.log("props of key1" ,this.props.pkey1);
+
+
+    };
+
+    addVisitHandler = () =>{
+        const selPatientToReturnVisitors = this.props.pkey1;
+
+
+
+
+
+       /* const selPatient = this.props.patients.find(ss => {
+            return this.props.pkey1 === key;
+
+        });*/
+
+        this.props.navigator.push({
+            screen: 'Medical.VisitScreen',
+         //   title: `Add Visit To : ${selPatient.patientName}`,
+            passProps: {
+                pkey: selPatientToReturnVisitors
+             },
+
+        });
+        console.log("sss " ,selPatientToReturnVisitors);
+    };
     render(){
 
+        let saveButton1 = (
+            <TouchableOpacity
+                style={styles.addButton}
+                onPress={this.addVisitHandler}
+              >
+                {this.props.isLoading
+                    ?<ActivityIndicator color="#000"/>
+                    :<Text style={{color : "#F8F8FF" , fontWeight: 'bold'}}>Add</Text>}
+            </TouchableOpacity>
+        );
         if (this.props.isLoading) {
             return (
                 <ActivityIndicator
                     animating={true}
-                    style={styles.indicator}
+                    style={{flex: 1,
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        height: 80}}
                     size="large"
                 />
             );
         }
 
         let viewButton = (
-            <View>
+
                 <VisitorsList visits={this.props.visits}
                               onItemSelected={this.itemSelectedHandler}/>
-            </View>
+
         );
         return (
-            <View>
+    <KeyboardAvoidingView style={styles.container}  >
+
                 {viewButton}
-            </View>
+            {saveButton1}
+
+
+    </KeyboardAvoidingView>
+
         );
 
     }
 }
 
+const styles = StyleSheet.create({
+    addButton: {
+        position: 'absolute',
+        zIndex: 11,
+        right: 30,
+        bottom: 20,
+        backgroundColor: '#1E90FF',
+        width: 55,
+        height: 55,
+        borderRadius: 35,
+        alignItems: 'center',
+        justifyContent: 'center',
+        elevation: 8,
+        flex:1,
+        marginTop: 50
+
+    },
+    container:{
+        flex:1,
+       // justifyContent:"center",
+      //  alignItems:"center",
+    },
+});
+
 const mapStateToProps = state =>{
     return{
         visits : state.visit.visits,
         isLoading: state.ui.isLoading,
+        patients: state.patientProfile.patients
     };
 };
 
 
 const mapDispatchToProps = dispatch=>{
     return{
+
         onLoadVisits :(pkey1)=> dispatch(getVisitor(pkey1))
     };
 };
