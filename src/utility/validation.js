@@ -45,12 +45,11 @@ const maxLengthValidator=(val,maxLength)=>{
 
 //name
 const nameValidator = val => {
-    return /^[A-Za-z\s]+$/.test(val);
+    return /^[\u0600-\u065F\u066A-\u06EF\u06FA-\u06FFa-zA-Z]+[\u0600-\u065F\u066A-\u06EF\u06FA-\u06FFa-zA-Z-_\s]*$/.test(val);
 
 };
     const phoneNoValidator = val =>{
-     return /^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/.test(val);
-
+        return   /^[0-9A-Za-z\s\-+.;(),\/*#]+$/.test(val);
 
     };
 

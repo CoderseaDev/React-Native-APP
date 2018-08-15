@@ -54,6 +54,7 @@ export const addVisitor = (visitorName, comment, image, date, pkey) => {
  */
 export const getVisitor = (pkey1) => {
     return (dispatch, getState) => {
+
         console.log(pkey1);
         axios.get(`http://codersea.com:8080/patient/${pkey1}`, {
             headers: {
@@ -61,9 +62,9 @@ export const getVisitor = (pkey1) => {
             }
         })
             .then(res => {
+                dispatch(uiStartLoading());
                 const response = JSON.parse(res.request._response).visits_info;
-               console.log("Get Visit",response);
-
+                dispatch(uiStopLoading());
                 if(response.length===0) {
                     Alert.alert(
                         'Empty Visits History',
@@ -74,7 +75,9 @@ export const getVisitor = (pkey1) => {
                         { cancelable: false }
                     )
                 }else{
+
                     dispatch(setVisitor(response));
+
                 }
 
 
@@ -82,7 +85,9 @@ export const getVisitor = (pkey1) => {
             })
             .catch((err) => {
                 console.log(err.response.data);
+                dispatch(uiStopLoading());
             })
+
     };
 
 };

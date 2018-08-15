@@ -187,6 +187,7 @@ class PatientProfileDataDetailsScreen extends Component {
         );
       //   this.props.navigator.pop();
     };
+
     goToVisitHistory =()=>{
         const selPatientToReturnVisitors = this.props.selectedPatient._id;
 
@@ -206,56 +207,37 @@ class PatientProfileDataDetailsScreen extends Component {
     };
 
 
+    addVisitHandler = key =>{
+     //   const selPatientToReturnVisitors = this.props.selectedPatient._id;
+
+        const selPatient = this.props.patients.find(selectedPatient => {
+            return selectedPatient.pkey === key;
+        });
+
+        this.props.navigator.push({
+            screen: 'Medical.VisitScreen',
+         //   title: `Add Visit To : ${selPatient.patientName}`,
+            passProps: {
+                pkey: selPatient
+            },
+
+        });
+        console.log("selllllllll " , selPatient)
+    };
 
 
     render() {
 
-      /*  let updateButton = (
-
+        let saveButton = (
             <Button
                 title="Save"
-                onPress={() => Alert.alert(
-                    'Alert',
-                    'Do You Want Update This Patient ?',
-                    [
-                        {text: 'Cancel', onPress: () => console.log('Update Pressed!')},
-                        {text: 'OK', onPress: this.patientUpdatedHandler},
-                    ],
-                    { cancelable: false }
-                )}
-
+                color="#1E90FF"
+                onPress={this.patientUpdatedHandler}
             />
-
         );
         if (this.props.isLoading) {
-            updateButton = <ActivityIndicator/>;
-        }*/
-
-       /* let goToVisitButton = (
-            <Button
-                color="#841584"
-                title="Visits History"
-                     onPress={this.goToVisitHistory} />
-        );
-
-        let deleteButton =(
-            <Button
-                color="#DC143C"
-                title="Delete This Patient"
-
-                onPress={() => Alert.alert(
-                    'Alert',
-                    'You Want Delete This Patient ?',
-                    [
-                        {text: 'Cancel', onPress: () => console.log('Cancel Pressed!')},
-                        {text: 'OK', onPress: this.patientDeletedHandler},
-                    ],
-                    { cancelable: false }
-                )}
-
-
-            />
-        );*/
+            (saveButton) = <ActivityIndicator color="#000"/>;
+        }
         return (
 
 
@@ -268,7 +250,9 @@ class PatientProfileDataDetailsScreen extends Component {
 
             <ScrollView showsVerticalScrollIndicator={false}
                         showsHorizontalScrollIndicator={false}>
-
+                <View style={{ margin :15}}>
+                    {saveButton}
+                </View>
 
                 <View style={this.state.viewMode==="portrait"
                     ? styles.portraitInputContainer
@@ -582,42 +566,9 @@ class PatientProfileDataDetailsScreen extends Component {
                             </FormInput>
                         </View>
 
-                {/*{updateButton}
-                <View style={{paddingVertical: 5}}/>
-                {goToVisitButton}
-                <View style={{paddingVertical: 5}}/>
-                {deleteButton}*/}
-
-
-
-
 
             </ScrollView>
-                    <ActionButton autoInactive={false} buttonColor='#3498db' color='black' >
-
-                        <ActionButton.Item buttonColor='#1abc9c' onPress={() => Alert.alert(
-                            'Alert',
-                            'Do You Want Update This Patient ?',
-                            [
-                                {text: 'Cancel', onPress: () => console.log('Update Pressed!')},
-                                {text: 'OK', onPress: this.patientUpdatedHandler},
-                            ],
-                            { cancelable: false }
-                        )}>
-
-                            <Icon name="md-cloud-upload" style={styles.addButtonText} />
-                            {this.props.isLoading
-                                ?<ActivityIndicator color="#000"/>
-                                :<Text>SAVE</Text>}
-
-                        </ActionButton.Item>
-
-
-
-                        <ActionButton.Item buttonColor='#9b59b6' title="Visits History" onPress={this.goToVisitHistory}>
-                            <Icon name="md-filing" style={styles.addButtonText} />
-                        </ActionButton.Item>
-
+                    <ActionButton autoInactive={false} buttonColor='#1E90FF' color='black' >
                         <ActionButton.Item buttonColor='#DC143C' title="Delete"  onPress={() => Alert.alert(
                             'Alert',
                             'You Want Delete This Patient ?',
@@ -628,12 +579,22 @@ class PatientProfileDataDetailsScreen extends Component {
                             { cancelable: false }
                         )}
                         >
-                            <Icon name="md-trash" style={styles.addButtonText} />
+                            <Icon name="md-trash" style={styles.iconStyle} />
+                        </ActionButton.Item>
+                        <ActionButton.Item buttonColor='#9b59b6' title="Visits History" onPress={this.goToVisitHistory}>
+                            <Icon name="md-filing" style={styles.iconStyle} />
                         </ActionButton.Item>
 
+                        <ActionButton.Item buttonColor='#ffd700' title="Add Visit" onPress={this.addVisitHandler}>
+                            <Icon name="md-clipboard" style={styles.iconStyle} />
+                        </ActionButton.Item>
+
+                        <ActionButton.Item  buttonColor='#1abc9c' title="Save" onPress={this.patientUpdatedHandler}>
+                            {this.props.isLoading
+                                ?<ActivityIndicator color="#000"/>
+                                :<Icon name="md-cloud-upload" style={styles.iconStyle} />}
+                        </ActionButton.Item>
                     </ActionButton>
-
-
             </KeyboardAvoidingView>
         );
     }
@@ -706,7 +667,7 @@ const styles = StyleSheet.create({
     inputContainer:{
         width:"80%",
     },
-    addButtonText: {
+    iconStyle: {
         color: '#000',
         fontSize: 30
     },
@@ -749,7 +710,7 @@ const styles = StyleSheet.create({
     landscapeDateWrapper:{
         width:225,
         paddingVertical: 10
-    }
+    },
 
 
 });
@@ -759,6 +720,7 @@ const mapStateToProps = state => {
     return {
         isLoading: state.ui.isLoading,
         patients: state.patientProfile.patients
+
     };
 };
 

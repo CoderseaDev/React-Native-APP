@@ -2,13 +2,8 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import PatientProfileList from '../../components/PatientProfileList/PatientProfileList';
 import {getPatient} from "../../store/actions/index";
-import {StyleSheet, View, ScrollView, TouchableOpacity , ActivityIndicator , Text} from 'react-native';
+import {StyleSheet, View, ActivityIndicator} from 'react-native';
 
-import * as Progress from 'react-native-progress';
-import SearchInput, {createFilter} from 'react-native-search-filter';
-const KEYS_TO_FILTERS = ['user.name', 'subject', 'patientName'];
-///////////ELmAFROD DY Htb2a El Search Page
-// El Mafrod Dy htb2a el Search
 class SearchPatientProfileDataScreen extends Component {
 
 
@@ -74,11 +69,8 @@ class SearchPatientProfileDataScreen extends Component {
             },
 
         });
+        console.log("ID " ,selPatient);
     };
-
-
-
-
 
     render() {
            if (this.props.isLoading) {
