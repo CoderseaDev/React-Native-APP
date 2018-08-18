@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {View, Button, StyleSheet, ScrollView, ActivityIndicator, KeyboardAvoidingView, Dimensions , ImageBackground} from 'react-native';
+import {View, Button, StyleSheet, ScrollView, ActivityIndicator, KeyboardAvoidingView, Dimensions , TouchableOpacity , Text} from 'react-native';
 import DatePicker from 'react-native-datepicker';
 
 import PickImage from '../../components/PickImage/PickImage';
@@ -16,16 +16,7 @@ class VisitScreen extends Component {
 
     state = {
         controls: {
-            visitorName: {
-                value: "",
-                valid: false,
-                touched: false,
-                validationRules: {
-                    notEmpty: true
-                }
-            },
-
-            comment: {
+          comment: {
                 value: "",
                 valid: false,
                 touched: false,
@@ -74,22 +65,6 @@ class VisitScreen extends Component {
         }
     };
 
-
-    visitorNameChangedHandler = val => {
-        this.setState(prevState => {
-            return {
-                controls: {
-                    ...prevState.controls,
-                    visitorName: {
-                        ...prevState.controls.visitorName,
-                        value: val,
-                        valid: validate(val, prevState.controls.visitorName.validationRules),
-                        touched: true
-                    },
-                }
-            };
-        });
-    };
     commentChangeHandler = val => {
         this.setState(prevState => {
             return {
@@ -140,63 +115,37 @@ class VisitScreen extends Component {
 
     rochtaAddedHandler = () => {
         this.props.onAddVisitor(
-            this.state.controls.visitorName.value,
             this.state.controls.comment.value,
             this.state.controls.image.value,
             this.state.controls.date.value,
             this.props.pkey,
+
         );
     };
 
 
     render() {
-        let submitButton = (
-            <Button
-                color="#000000"
-                title="Add"
-                onPress={this.rochtaAddedHandler}
-              /*  disabled={
-                    !this.state.controls.visitorName.valid ||
-                    !this.state.controls.comment.valid||
-                     !this.state.controls.date.valid ||
-                    !this.state.controls.image.valid
-                }*/
-            />
-        );
-        if (this.props.isLoading) {
-            submitButton = <ActivityIndicator/>;
-
-
-
-
-
-        }
+            let saveButton1 = (
+                <TouchableOpacity
+                    style={!this.state.controls.image.valid? styles.addButtonIfDisabled : styles.addButton}
+                    onPress={this.rochtaAddedHandler}
+                    disabled={
+                         !this.state.controls.image.valid
+                    }>
+                    {this.props.isLoading
+                        ?<ActivityIndicator color="#000"/>
+                        :<Text style={{color : "#F8F8FF" , fontWeight: 'bold'}}>SAVE</Text>}
+                </TouchableOpacity>
+            );
         return (
 
             <KeyboardAvoidingView
                 style={styles.container}
             >
-
-            <ScrollView    showsVerticalScrollIndicator={false}
-                           showsHorizontalScrollIndicator={false}>
-
                 <View style={this.state.viewMode==="portrait"
                     ? styles.portraitInputContainer
                     : styles.landscapeInputContainer}>
-                    <View  style={this.state.viewMode==="portrait"
-                        ? styles.portraitInputWrapper
-                        : styles.landscapeInputWrapper}>
-
-                    <FormInput
-                        autoCorrect={true}
-                        keyboardType="default"
-                        inputStyle={{color: 'black'}}
-                        placeholder="Visitor Name"
-                        visitData={this.state.controls.visitorName}
-                        onChangeText={this.visitorNameChangedHandler}
-                    />
-                    </View>
-                    <View style={{paddingVertical: 10}}/>
+                    <View style={{paddingVertical: 8}}/>
                         <View style={this.state.viewMode==="portrait"
                             ? styles.portraitInputWrapper
                             : styles.landscapeInputWrapper}>
@@ -227,24 +176,16 @@ class VisitScreen extends Component {
 
                                 color: '#000000'
                             }
-
                         }}
                         onDateChange={this.dateChangeHandler}
                     />
                     </View>
                     </View>
-
-                <View style={{paddingVertical: 10}}/>
-
-
-
+                <View style={{paddingVertical: 5}}/>
                     <PickImage
                         onImagePicked={this.imagePickedHandler}
                     />
-
-
-                <View style={{paddingVertical: 8}}/>
-
+                <View style={{paddingVertical: 5}}/>
     <View style={styles.viewComment}>
                 <View style={styles.placeholder} >
                     <FormInput
@@ -266,11 +207,10 @@ class VisitScreen extends Component {
     <View style={{paddingVertical: 8}}/>
 
     <View style={styles.button}>
-        {submitButton}
+        {saveButton1}
     </View>
 
 
-            </ScrollView>
             </KeyboardAvoidingView>
 
         );
@@ -304,20 +244,6 @@ const styles = StyleSheet.create({
         margin: 30,
 
     },
-    bgImage: {
-       // width:"100%",
-      //  height:"100%",
-
-          flex: 1,
-
-         top: 0,
-          left: 0,
-        //  width: SCREEN_WIDTH,
-        //   height: SCREEN_HEIGHT,
-    justifyContent: 'center',
-        alignItems: 'center',
-        //  opacity: .5
-    },
     landscapeInputContainer:{
         flexDirection:"row",
         justifyContent:"space-between"
@@ -338,9 +264,33 @@ const styles = StyleSheet.create({
     landscapeDateWrapper:{
         width:225,
         paddingVertical: 10
-    }
-
-
+    },
+    addButton: {
+        position: 'absolute',
+        zIndex: 11,
+        right: 30,
+        bottom: 20,
+        backgroundColor: '#1E90FF',
+        width: 55,
+        height: 55,
+        borderRadius: 35,
+        alignItems: 'center',
+        justifyContent: 'center',
+        elevation: 8,
+    },
+    addButtonIfDisabled: {
+        position: 'absolute',
+        zIndex: 11,
+        right: 30,
+        bottom: 20,
+        backgroundColor: '#D3D3D3',
+        width: 55,
+        height: 55,
+        borderRadius: 35,
+        alignItems: 'center',
+        justifyContent: 'center',
+        elevation: 8,
+    },
 });
 
 //get redux state as an argument
@@ -354,7 +304,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        onAddVisitor: (visitorName, comment, image, date, pkey) => dispatch(addVisitor(visitorName, comment, image, date, pkey))
+        onAddVisitor: ( comment, image, date, pkey) => dispatch(addVisitor( comment, image, date, pkey))
 
     };
 };

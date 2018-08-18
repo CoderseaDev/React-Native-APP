@@ -8,8 +8,8 @@ const VisitorsList = props => {
             data={props.visits}
             renderItem={(info)=>(
                 <ListItem
-                    visitorName={info.item.visitorName}
-                    //date ={info.item.date}
+                   // visitorName={info.item.visitorName}
+                    date ={info.item.date}
                     onItemPressed ={()=> props.onItemSelected(info.item._id)}
                 />
 

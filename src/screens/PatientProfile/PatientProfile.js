@@ -108,9 +108,9 @@ class PatientProfileScreen extends Component {
                 email:{
                     value:'',
                     valid: false,
-                    validationRules:{
+                    /*validationRules:{
                         isEmail: true
-                    },
+                    },*/
                     touched: false
                 },
                 mobileNo: {
@@ -266,6 +266,14 @@ class PatientProfileScreen extends Component {
         }
         this.setState({controls})
     };
+
+    emailChangeHandler = val => {
+        let controls = this.state.controls;
+        controls.email = {
+            value: val, touched: true
+        }
+        this.setState({controls})
+    };
     updateInputState = (key, value) => {
                         this.setState(prevState => {
                             return {
@@ -369,7 +377,7 @@ class PatientProfileScreen extends Component {
                     <FormInput
                         textInputRef={ref => (this.patinetNameInput = ref)}
                         inputStyle={{color: 'black'}}
-                        placeholder="Patient Name"
+                        placeholder="Patient Name                *"
                         value={this.state.controls.patientName}
                         onChangeText={val=>this.updateInputState("patientName",val)}
 
@@ -419,7 +427,7 @@ class PatientProfileScreen extends Component {
 
                                 keyboardType="phone-pad"
                                 inputStyle={{color: 'black'}}
-                                placeholder="Mobile"
+                                placeholder="Mobile                             *"
                                 value={this.state.controls.mobileNo}
                                 onChangeText={val=>this.updateInputState("mobileNo",val)}
                                // onChangeText={this.mobileNoChangeHandler}
@@ -440,8 +448,7 @@ class PatientProfileScreen extends Component {
                                 inputStyle={{color: 'black'}}
                                 placeholder="E-mail address"
                                 value={this.state.controls.email}
-
-                                onChangeText={val=>this.updateInputState("email",val)}
+                               onChangeText={this.emailChangeHandler}
                                 autoCapitalize="non"
                                 autoCorrect={false}
                                 keyboardType="email-address"
@@ -450,9 +457,6 @@ class PatientProfileScreen extends Component {
                                     this.heightInput.focus()
                                 }}
                             />
-                            {this.state.controls.email.touched && !this.state.controls.email.valid
-                                ?<FormValidationMessage>Please Enter a Valid Email</FormValidationMessage>
-                                :null}
                         </View>
 
 

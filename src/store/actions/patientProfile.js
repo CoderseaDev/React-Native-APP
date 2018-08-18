@@ -13,11 +13,10 @@ const dummyData = {
     contactPhoneNo: "152",
     contactRelationship: "121",
     date: "2010-07-06T00:00:00.000Z",
-    email: "jasdoo@saso.com",
+    email: "",
     gender: "male",
     height: "116",
     homeNo: "1213",
-
     mobileNo: "192",
     patientName: "Bakry",
     surName: "lo77aa",
@@ -121,7 +120,7 @@ export const getPatient = () => {
                         'No Patients',
                         'No Patients Data To Search Please Go To Add Patients Screen And Add One , Thanks',
                         [
-                            {text: 'OK', /*onPress: () => dispatch(PatientProfileScreen())*/},
+                            {text: 'OK',},
                         ],
                         { cancelable: false }
                     )

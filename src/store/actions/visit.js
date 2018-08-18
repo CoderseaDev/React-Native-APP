@@ -7,19 +7,21 @@ import {Alert} from 'react-native'
  * This CONST Add Visitors To The Patient ,
  * @params pkey => to Catch The its Already The Patient We Need To Add The Visitors To it Or Not
  */
-export const addVisitor = (visitorName, comment, image, date, pkey) => {
+export const addVisitor = ( comment, image, date, pkey) => {
     return (dispatch, getState) => {
         dispatch(uiStartLoading());
+
         const data = new FormData();
-        data.append('visitorName', visitorName);
         data.append('comment', comment);
         data.append('date', new Date(date).toISOString());
         data.append('patient_id', pkey._id);
         data.append('image', {
             uri: image.uri,
             type: image.type,
-            name: image.fileName
+            name: image.fileName,
         });
+
+
         axios.post("http://codersea.com:8080/visit/addVisit", data, {
             headers: {
                 'Accept': 'application/json',
@@ -43,7 +45,8 @@ export const addVisitor = (visitorName, comment, image, date, pkey) => {
             })
             .catch((error) => {
             dispatch(uiStopLoading());
-            alert("please Upload Image");
+            alert("Please Upload Image");
+            console.log(error)
 
 
         })

@@ -5,19 +5,13 @@ import App from "../../../App";
 import startMainTabs from '../../screens/MainTabs/startMainTabs';
 import axios from 'axios';
 import {ToastAndroid} from 'react-native';
-import OfflineNotice from "../../components/OfflineNotice/OffilneNotice";
-import MiniOfflineSign from "../../components/OfflineNotice/OffilneNotice";
 /********
  * @param authData to talk to The email And Pass UI
  */
 export const authSingIn = (authData) => {
 
     return dispatch => {
-        dispatch(uiStartLoading());
-        if(OfflineNotice){
-            dispatch(uiStopLoading());
-        }
-        dispatch(uiStartLoading());
+        dispatch(uiStartLoading())
         axios.post(`http://codersea.com:8080/user/signin`, {
                 email: authData.email,
                 password: authData.password,
@@ -42,11 +36,13 @@ export const authSingIn = (authData) => {
                 alert(err.response.data.message);
                 console.log(err.response.data.message);
                 dispatch(uiStopLoading());
-            });
+            })
 
 
+        dispatch(uiStopLoading());
 
-    }
+
+     }
 };
 /*******
  *@param  token to store in AsyncStorage

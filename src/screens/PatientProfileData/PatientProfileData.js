@@ -60,16 +60,13 @@ class SearchPatientProfileDataScreen extends Component {
         const selPatient = this.props.patients.find(patientProfile => {
             return patientProfile._id === key;
         });
-
         this.props.navigator.push({
             screen: 'Medical.VisitScreen',
             title: `Add Visit To : ${selPatient.patientName}`,
             passProps: {
                 pkey: selPatient
             },
-
         });
-        console.log("ID " ,selPatient);
     };
 
     render() {
