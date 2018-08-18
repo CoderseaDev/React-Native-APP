@@ -23,6 +23,7 @@ import {updatePatient} from "../../store/actions/index";
 import { deletePatient } from "../../store/actions/index";
 import {FormInput, FormValidationMessage , FormLabel} from 'react-native-elements'
 import validate from "../../utility/validation";
+
 class PatientProfileDataDetailsScreen extends Component {
     constructor(props) {
         super(props);
@@ -87,14 +88,12 @@ class PatientProfileDataDetailsScreen extends Component {
     componentWillUnmount(){
         Dimensions.removeEventListener("change",this.updateStyles);
     }
-
     updateStyles =(dims)=>{
         this.setState({
             viewMode:
                 dims.window.height > 500 ? "portrait" : "landscape",
         });
     };
-
     updateInputState = (key, value) => {
         this.setState(prevState => {
             return {
@@ -113,11 +112,6 @@ class PatientProfileDataDetailsScreen extends Component {
                 }
             };
         });
-    };
-
-    surNameChangeHandler = val => {
-
-        this.setState({surName: val});
     };
     heightChangeHandler = val => {
 
@@ -162,8 +156,6 @@ class PatientProfileDataDetailsScreen extends Component {
     dateChangeHandler = val =>{
         this.setState({date: val});
     };
-
-
     patientUpdatedHandler = () => {
         this.props.onUpdatePatient(
             this.state.controls.patientName.value,
@@ -187,7 +179,6 @@ class PatientProfileDataDetailsScreen extends Component {
         );
       //   this.props.navigator.pop();
     };
-
     goToVisitHistory =()=>{
         const selPatientToReturnVisitors = this.props.selectedPatient._id;
 
@@ -205,27 +196,18 @@ class PatientProfileDataDetailsScreen extends Component {
         this.props.navigator.pop();
 
     };
-
-
     addVisitHandler = key =>{
-     //   const selPatientToReturnVisitors = this.props.selectedPatient._id;
-
         const selPatient = this.props.patients.find(selectedPatient => {
             return selectedPatient.pkey === key;
         });
-
         this.props.navigator.push({
             screen: 'Medical.VisitScreen',
          //   title: `Add Visit To : ${selPatient.patientName}`,
             passProps: {
                 pkey: selPatient
             },
-
         });
-        console.log("selllllllll " , selPatient)
     };
-
-
     render() {
 
         let saveButton = (
@@ -483,7 +465,7 @@ class PatientProfileDataDetailsScreen extends Component {
                     <View  style={this.state.viewMode==="portrait"
                         ? styles.portraitInputWrapper
                         : styles.landscapeInputWrapper}>
-                        <Text style={{textAlign: 'center'}} >Date Of Birth</Text>
+                        <Text style={{textAlign: 'center'}} >Date</Text>
                             <DatePicker
                                 style={this.state.viewMode==="portrait"
                                     ? styles.portraitDateWrapper
@@ -599,6 +581,7 @@ class PatientProfileDataDetailsScreen extends Component {
         );
     }
 }
+
 const styles = StyleSheet.create({
     container:{
 
@@ -715,7 +698,6 @@ const styles = StyleSheet.create({
 
 });
 
-
 const mapStateToProps = state => {
     return {
         isLoading: state.ui.isLoading,
@@ -731,7 +713,6 @@ const mapDispatchToProps = dispatch => {
             height,weight, bloodType,
             complaint, homeNo,
             address,gender,date, contactName ,contactRelationship, contactPhoneNo, selectedPatient) =>
-
             dispatch(updatePatient(patientName, surName, email, mobileNo,
                 height,weight, bloodType,
                 complaint, homeNo,

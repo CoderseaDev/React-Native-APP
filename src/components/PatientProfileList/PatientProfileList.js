@@ -34,8 +34,7 @@ class PatientProfileList extends Component {
         />
     );
 
-
-    showSpinner =()=>{
+componentWillMount(){
 
         setTimeout(()=>{
                 this.setState({
@@ -54,16 +53,8 @@ class PatientProfileList extends Component {
             <Animated.ScrollView
                 showsVerticalScrollIndicator={false}
                 showsHorizontalScrollIndicator={false}
-
-
-                onMomentumScrollEnd={() => this.showSpinner()}
-
-
-
-
+              //  onMomentumScrollEnd={() => this.showSpinner()}
             >
-
-
 
                 <Header searchBar rounded style={styles.SearchBar}>
                     <Item>

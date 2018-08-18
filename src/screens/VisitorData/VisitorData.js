@@ -1,5 +1,5 @@
 import React ,{Component} from 'react';
-import {View , ActivityIndicator ,TouchableOpacity, Text , StyleSheet  , KeyboardAvoidingView} from 'react-native';
+import {ActivityIndicator ,TouchableOpacity, Text , StyleSheet  , KeyboardAvoidingView} from 'react-native';
 import {connect} from 'react-redux';
 import VisitorsList from '../../components/VisitorsList/VisitorsList';
 import { getVisitor } from "../../store/actions/index";
@@ -15,10 +15,10 @@ class VisitorDataScreen extends Component{
     constructor(props){
         super(props);
         this.props.navigator.setOnNavigatorEvent(this.onNavigatorEvent)
-        this.state = {
+      /*  this.state = {
             data: null,
             text: this.props.visits
-        }
+        }*/
     }
 
     onNavigatorEvent = event => {
@@ -57,39 +57,16 @@ class VisitorDataScreen extends Component{
         });
 
     };
-
-    pic = ()=>{
-
-
-        console.log("props of key1" ,this.props.pkey1);
-
-
-    };
-
     addVisitHandler = () =>{
-        const selPatientToReturnVisitors = this.props.pkey1;
-
-
-
-
-
-       /* const selPatient = this.props.patients.find(ss => {
-            return this.props.pkey1 === key;
-
-        });*/
-
+        const selPatientToReturnVisitors = {_id:this.props.pkey1};
         this.props.navigator.push({
             screen: 'Medical.VisitScreen',
-         //   title: `Add Visit To : ${selPatient.patientName}`,
             passProps: {
                 pkey: selPatientToReturnVisitors
              },
-
         });
-        console.log("sss " ,selPatientToReturnVisitors);
     };
     render(){
-
         let saveButton1 = (
             <TouchableOpacity
                 style={styles.addButton}
@@ -114,18 +91,14 @@ class VisitorDataScreen extends Component{
         }
 
         let viewButton = (
-
                 <VisitorsList visits={this.props.visits}
                               onItemSelected={this.itemSelectedHandler}/>
 
         );
         return (
     <KeyboardAvoidingView style={styles.container}  >
-
                 {viewButton}
             {saveButton1}
-
-
     </KeyboardAvoidingView>
 
         );
@@ -152,8 +125,6 @@ const styles = StyleSheet.create({
     },
     container:{
         flex:1,
-       // justifyContent:"center",
-      //  alignItems:"center",
     },
 });
 

@@ -1,9 +1,11 @@
 import React from 'react';
 import { View, StyleSheet , TouchableOpacity ,Text } from 'react-native';
 import { ListItem  } from 'react-native-elements';
+import Moment from 'moment';
 /**
  *@param props to Visitors History ListItem
  */
+Moment.locale('en');
 
 const listItem = (props) => (
 
@@ -11,7 +13,7 @@ const listItem = (props) => (
         subtitle={
             <TouchableOpacity onPress={props.onItemPressed}>
                 <View style={styles.subtitleView}>
-                    <Text style={styles.ratingText}>{props.visitorName}</Text>
+                    <Text style={styles.ratingText}>{Moment(props.date).format('DD - MM - YYYY')}</Text>
                 </View>
             </TouchableOpacity>
         }/>

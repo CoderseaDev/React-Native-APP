@@ -9,7 +9,7 @@ import {
     Platform,
     Dimensions
 } from "react-native";
-
+import Moment from 'moment';
 
 class VisitorDataDetailsScreen extends Component {
     state = {
@@ -36,7 +36,12 @@ class VisitorDataDetailsScreen extends Component {
     };
 
     render() {
-        return (
+
+
+        Moment.locale('en');
+        let dt = this.props.selectedVisit.date ;
+
+          return (
             <View
                 style={[
                     styles.container,
@@ -57,20 +62,14 @@ class VisitorDataDetailsScreen extends Component {
                 <View style={styles.subContainer}>
                     <View>
                         <Text style={styles.visitorName}>
-                         Name :   {this.props.selectedVisit.visitorName}
+                            Date :   {Moment(dt).format('DD - MM - YYYY')}
                         </Text>
                     </View>
                     <View>
-                        <Text>
+                        <Text style={styles.visitorName}>
                             comment :   {this.props.selectedVisit.comment}
                         </Text>
                     </View>
-                    <View>
-                        <Text >
-                            Date :   {this.props.selectedVisit.date}
-                        </Text>
-                    </View>
-
                     <View>
 
                     </View>
@@ -101,7 +100,7 @@ const styles = StyleSheet.create({
     visitorName: {
         fontWeight: "bold",
         textAlign: "center",
-        fontSize: 28
+        fontSize: 20
     },
     subContainer: {
         flex: 1
