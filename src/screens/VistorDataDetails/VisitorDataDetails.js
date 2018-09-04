@@ -53,7 +53,7 @@ class VisitorDataDetailsScreen extends Component {
                 <View style={styles.visitorDetailContainer}>
                     <View style={styles.subContainer}>
                         <Image
-                            source={{uri:`http://codersea.com:8080/${this.props.selectedVisit.image_info.path}`}}
+                            source={{uri:`http://165.227.220.14:8080/${this.props.selectedVisit.image_info.path}`}}
                             style={styles.visitorImage}
                         />
                     </View>

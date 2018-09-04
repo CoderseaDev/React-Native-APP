@@ -151,7 +151,7 @@ class PatientProfileDataDetailsScreen extends Component {
     };
     genderChangeHandler  = val => {
         this.setState({gender: val});
-        console.log(val);
+        //console.log(val);
     };
     dateChangeHandler = val =>{
         this.setState({date: val});
@@ -555,7 +555,7 @@ class PatientProfileDataDetailsScreen extends Component {
                             'Alert',
                             'You Want Delete This Patient ?',
                             [
-                                {text: 'Cancel', onPress: () => console.log('Cancel Pressed!')},
+                                {text: 'Cancel'},
                                 {text: 'OK', onPress: this.patientDeletedHandler},
                             ],
                             { cancelable: false }

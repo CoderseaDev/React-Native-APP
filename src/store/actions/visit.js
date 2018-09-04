@@ -1,6 +1,7 @@
 import {uiStartLoading, uiStopLoading} from './index';
 import {SET_VISITOR} from "./actionTypes";
-import {ToastAndroid} from 'react-native';
+
+import Toast from 'react-native-simple-toast';
 import axios from 'axios';
 import {Alert} from 'react-native'
 /*************
@@ -12,17 +13,21 @@ export const addVisitor = ( comment, image, date, pkey) => {
         dispatch(uiStartLoading());
 
         const data = new FormData();
+
+        let possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
         data.append('comment', comment);
         data.append('date', new Date(date).toISOString());
         data.append('patient_id', pkey._id);
         data.append('image', {
             uri: image.uri,
             type: image.type,
-            name: image.fileName,
+            //name: image.fileName,
+            // Specify the File Name , becuase IOS FileName is not find , android is find w must create that to create new file name
+            name : possible.charAt(Math.floor(Math.random() * possible.length))
         });
 
 
-        axios.post("http://codersea.com:8080/visit/addVisit", data, {
+        axios.post("http://165.227.220.14:8080/visit/addVisit", data, {
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'multipart/form-data',
@@ -30,15 +35,15 @@ export const addVisitor = ( comment, image, date, pkey) => {
             }
         })
             .then((responseJson) => {
-                console.log(responseJson);
-                console.log(responseJson.data.message);
+              //  console.log(responseJson);
+             //   console.log(responseJson.data.message);
                 dispatch(uiStopLoading());
-                ToastAndroid.show('You Have Add The Visitor!', ToastAndroid.LONG);
+                Toast.show('You Have Add The Visitor!', Toast.LONG);
             })
             .catch((error) => {
                 if(error.response.data.error) {
                     dispatch(uiStopLoading());
-                    console.log(error.response.data.error);
+                  //  console.log(error.response.data.error);
                     alert(error.response.data.error);
                 }
 
@@ -46,7 +51,7 @@ export const addVisitor = ( comment, image, date, pkey) => {
             .catch((error) => {
             dispatch(uiStopLoading());
             alert("Please Upload Image");
-            console.log(error)
+           // console.log(error)
 
 
         })
@@ -58,8 +63,8 @@ export const addVisitor = ( comment, image, date, pkey) => {
 export const getVisitor = (pkey1) => {
     return (dispatch, getState) => {
 
-        console.log(pkey1);
-        axios.get(`http://codersea.com:8080/patient/${pkey1}`, {
+       // console.log(  pkey1);
+        axios.get(`http://165.227.220.14:8080/patient/${pkey1}`, {
             headers: {
                 'content-type': 'application/json', "Authorization": getState().auth.token
             }
@@ -87,7 +92,7 @@ export const getVisitor = (pkey1) => {
 
             })
             .catch((err) => {
-                console.log(err.response.data);
+              //  console.log(err.response.data);
                 dispatch(uiStopLoading());
             })
 

@@ -13,7 +13,8 @@ const listItem1 = (props) => (
             <TouchableOpacity activeOpacity={-10}  onPress={props.onAddPressed}>
                 <View style={styles.ViewButton}>
                     <View style={styles.ViewIconWithText}>
-                        <Text size={10}>Add Visit</Text>
+
+                        <Text  size={10}>Add Visit</Text>
                         <Icon
                             name='md-clipboard'
                             color='gray'
@@ -59,6 +60,7 @@ const styles = StyleSheet.create({
 
     ViewIconWithText:{
         flexDirection:"row"
+        ,alignItems: "center"
     },
     IconStyle:{
         marginLeft:10
