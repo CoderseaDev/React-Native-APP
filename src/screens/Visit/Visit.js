@@ -142,24 +142,26 @@ class VisitScreen extends Component {
             <KeyboardAvoidingView
                 style={styles.container}
             >
-                <View style={this.state.viewMode==="portrait"
-                    ? styles.portraitInputContainer
-                    : styles.landscapeInputContainer}>
-                    <View style={{paddingVertical: 8}}/>
-                        <View style={this.state.viewMode==="portrait"
-                            ? styles.portraitInputWrapper
-                            : styles.landscapeInputWrapper}>
+                <View  style={{margin: 15}}>
+                <Button title={"SAVE"} onPress={this.rochtaAddedHandler} disabled={
+                    !this.state.controls.image.valid
+                }/>
+                </View>
+                <ScrollView showsVerticalScrollIndicator={false}
+                            showsHorizontalScrollIndicator={false}>
+
+                        <Text style={{textAlign: 'center'}} >Date</Text>
+
+                    <View style={{alignItems: 'center'}}>
                     <DatePicker
                         visitdata={this.state.controls.date}
-                        style={this.state.viewMode==="portrait"
-                            ? styles.portraitDateWrapper
-                            : styles.landscapeDateWrapper}
+                        style={{width: "80%"}}
                         date={this.state.controls.date.value}
                         mode="date"
                         placeholder="select date"
                         format="YYYY-MM-DD"
-                        minDate="1993-11-30"
-                        maxDate="2020-06-01"
+                        minDate="1970-01-01"
+                        maxDate="2050-01-01"
                         confirmBtnText="Confirm"
                         cancelBtnText="Cancel"
                         customStyles={{
@@ -179,7 +181,6 @@ class VisitScreen extends Component {
                         }}
                         onDateChange={this.dateChangeHandler}
                     />
-                    </View>
                     </View>
                 <View style={{paddingVertical: 5}}/>
                     <PickImage
@@ -210,7 +211,7 @@ class VisitScreen extends Component {
         {saveButton1}
     </View>
 
-
+                </ScrollView>
             </KeyboardAvoidingView>
 
         );
@@ -259,7 +260,7 @@ const styles = StyleSheet.create({
         width: "100%",
     },
     portraitDateWrapper:{
-        width:325
+        width: "100%"
     },
     landscapeDateWrapper:{
         width:225,

@@ -9,7 +9,7 @@ const store = configureStore();
 
 const RNRedux = () => (
     <Provider store={store}>
-        <App />
+        <App/>
     </Provider>
 );
 

@@ -1,7 +1,9 @@
 import {PATIENT_ADDED, REMOVE_PATIENT, SET_PATIENT, START_ADD_PATIENT} from "./actionTypes";
 import {uiStartLoading, uiStopLoading, authGetToken , authLogout} from './index';
 import axios from 'axios';
-import {Alert, ToastAndroid} from 'react-native';
+import Toast from 'react-native-simple-toast';
+
+import {Alert} from 'react-native';
 /******
  * Try Auto From Inputs
  */
@@ -55,7 +57,7 @@ export const startAddPatient = () => {
                 alert("No valid token found!");
             })
             .then(token => {
-                axios.post('http://codersea.com:8080/patient/addNewPatient', patientProfileData, {
+                axios.post('http://165.227.220.14:8080/patient/addNewPatient', patientProfileData, {
                     headers: {
                         'content-type': 'application/json', "Authorization": token
                     }
@@ -63,13 +65,14 @@ export const startAddPatient = () => {
 
                     .then(res => {
                         const response = JSON.parse(res.request._response);
-                        console.log("Add Patient",response);
+                      //  console.log("Add Patient",response);
                         dispatch(uiStopLoading());
-                        ToastAndroid.show('You Have Add Patient!', ToastAndroid.LONG);
+                       Toast.show('You Have Add Patient!', Toast.LONG);
+
                         dispatch(patientAdded());
                     })
                     .catch((err) => {
-                        console.log(err.response.data);
+                    //    console.log(err.response.data);
                         alert(err.response.data.error);
                         dispatch(uiStopLoading());
                     })
@@ -104,7 +107,7 @@ export const getPatient = () => {
             })
             .then(token => {
 
-        axios.get('http://codersea.com:8080/patient/', {
+        axios.get('http://165.227.220.14:8080/patient/', {
             headers: {
                 'content-type': 'application/json', "Authorization": token
             }
@@ -113,7 +116,7 @@ export const getPatient = () => {
             .then(res => {
                 dispatch(uiStartLoading());
                 const response = JSON.parse(res.request._response);
-                console.log(response);
+              //  console.log(response);
                 dispatch(uiStopLoading());
                 if(response.message) {
                     Alert.alert(
@@ -131,7 +134,7 @@ export const getPatient = () => {
             })
             .catch((err) => {
                 dispatch(uiStopLoading());
-                alert("Check Your Internet Connection")
+                alert("Check Your Connection")
 
             })
             });
@@ -171,19 +174,19 @@ export const updatePatient = (patientName, surName, email, mobileNo,
                 dispatch(uiStopLoading());
             })
             .then(token => {
-                    axios.patch(`http://codersea.com:8080/patient/${selectedPatient._id}`, update, {
+                    axios.patch(`http://165.227.220.14:8080/patient/${selectedPatient._id}`, update, {
                     headers: {
                         'content-type': 'application/json', "Authorization": token
                     }
                 })
                     .then(res => {
                         const response = JSON.parse(res.request._response);
-                        console.log("Update Patient",response);
+                    //    console.log("Update Patient",response);
                         dispatch(uiStopLoading());
-                        ToastAndroid.show('Update Done!', ToastAndroid.LONG);
+                        Toast.show('Update Done!', Toast.LONG);
                     })
                     .catch((err) => {
-                        console.log("cANT update",err.response.data);
+                     //   console.log("cANT update",err.response.data);
                         alert(err.response.data.error);
                         dispatch(uiStopLoading());
                     })
@@ -198,16 +201,16 @@ export const deletePatient = ( selectedPatient , key) => {
     return (dispatch, getState) => {
         dispatch(uiStartLoading());
         dispatch(removePatient(key));
-        axios.delete(`http://codersea.com:8080/patient/${selectedPatient}`, {
+        axios.delete(`http://165.227.220.14:8080/patient/${selectedPatient}`, {
             headers: {
                 'content-type': 'application/json', "Authorization": getState().auth.token
             }
         })
             .then(res => {
                 const response = JSON.parse(res.request._response);
-             console.log(response);
+            // console.log(response);
                 dispatch(uiStopLoading());
-                ToastAndroid.show('You Have Delete Patient!', ToastAndroid.LONG);
+                Toast.show('You Have Delete Patient!', Toast.LONG);
             })
             .catch((err) => {
 

@@ -103,3 +103,9 @@ export default () => Navigation.startSingleScreenApp({
 
 });
 
+// export default () => Navigation.startSingleScreenApp({
+//     screen: {
+//         screen: "awesome-places.AuthScreen",
+//         title: "Login"
+//     }
+// });

@@ -2,39 +2,46 @@ import {AsyncStorage} from 'react-native';
 import {AUTH_SET_TOKEN, AUTH_REMOVE_TOKEN} from './actionTypes';
 import {uiStartLoading, uiStopLoading} from "./index";
 import App from "../../../App";
+import Toast from 'react-native-simple-toast';
+
 import startMainTabs from '../../screens/MainTabs/startMainTabs';
 import axios from 'axios';
-import {ToastAndroid} from 'react-native';
 /********
  * @param authData to talk to The email And Pass UI
  */
 export const authSingIn = (authData) => {
 
     return dispatch => {
-        dispatch(uiStartLoading())
-        axios.post(`http://codersea.com:8080/user/signin`, {
+        dispatch(uiStartLoading());
+        axios.post(`http://165.227.220.14:8080/user/signin`, {
                 email: authData.email,
                 password: authData.password,
         })
+        //     .catch(err=>{
+        //         console.log(err);
+        //         alert(err);
+        //         dispatch(uiStopLoading())
+        //
+        // })
             .then(res => {
                 const response = JSON.parse(res.request._response);
-                console.log(response);
+              //  console.log(response);
 
                 if(!response.token){
-                    console.log("Authentication Failed");
-                    alert("Auth Failed");
+
+                    alert(response.message);
                     dispatch(uiStopLoading());
                 }else{
                 dispatch(authStoreToken(response.token, response.expiresIn , response.refreshToken));
                     dispatch(uiStopLoading());
                       startMainTabs();
                     dispatch(uiStartLoading());
-                    ToastAndroid.show('You Have Logged In!', ToastAndroid.LONG);
+                    Toast.show('You Have Logged In!', Toast.LONG);
                 }
             })
             .catch((err) => {
                 alert(err.response.data.message);
-                console.log(err.response.data.message);
+               // console.log(err.response.data.message);
                 dispatch(uiStopLoading());
             })
 
@@ -109,7 +116,7 @@ export const authGetToken = () => {
                 return AsyncStorage.getItem("ap:auth:refreshToken")
                     .then(refreshToken => {
                         return axios.post(
-                            "http://codersea.com:8080/user/refreshtoken",
+                            "http://165.227.220.14:8080/user/refreshtoken",
                         {
                                 headers: {
                                     "Content-Type": "application/x-www-form-urlencoded"
@@ -121,7 +128,7 @@ export const authGetToken = () => {
                     })
                     .then(res => {
                         const response = JSON.parse(res.request._response);
-                        console.log(response);
+                      //  console.log(response);
                     })
 
 
@@ -141,7 +148,7 @@ export const authAutoSignIn = () => {
                 startMainTabs();
                 dispatch(uiStartLoading());
             })
-            .catch(err => console.log("Failed to fetch token!"));
+           // .catch(err => console.log("Failed to fetch token!"));
     };
 };
 /*******
@@ -163,10 +170,11 @@ export const authLogout = () => {
     return dispatch => {
         dispatch(authClearStorage())
             .then(() => {
+
                 App();
             });
         dispatch(authRemoveToken());
-        ToastAndroid.show('You Are Logged Out', ToastAndroid.LONG);
+        Toast.show('You Are Logged Out', Toast.LONG);
     };
 };
 /****

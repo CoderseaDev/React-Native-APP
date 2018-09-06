@@ -24,66 +24,70 @@ class PatientProfileScreen extends Component {
         this.resetValuesOfData();
 
     }
-   /* state = {
-        viewMode : Dimensions.get("window").height>500 ? "portrait": "landscape",
-        gender: '',
-        controls: {
-            patientName: {
-                value: '',
-                valid: false,
-                validationRules:{
-                    isName: true
-                },
-                touched: false ,
-            },
-            surName: {
-                value: '',
-                valid: false,
-                validationRules:{
-                    isName: true
-                },
-                 touched: false,
-            },
-            email:{
-                value:'',
-                valid: false,
-                validationRules:{
-                    isEmail: true
-                },
-                touched: false
-            },
-            mobileNo: {
-                value:"",
-                valid: false,
-                validationRules:{
-                    isPhoneNo: true
-                },
-                touched: false
-            },
-            height: {
-                value: '',
-                touched: false,
-                valid: false,
-                validationRules:{
-                    maxLength: 3
-                }
-            },
-            weight: {value: '', touched: false, valid: false,},
-            bloodType: {value: '', touched: false, valid: false,},
-            complaint: {value: '', touched: false, valid: false,},
-            date: {
-                value: new Date(),
-                valid: false,
-            },
-            homeNo: {value: '', touched: false,  valid: false,},
-            address: {value: '', touched: false ,  valid: false,},
-            contactName: {value: '', touched: false ,  valid: false,},
-            contactRelationship: {value: '', touched: false ,  valid: false,},
-            contactPhoneNo: {value: '', touched: false ,  valid: false,},
-            patientId: {value: ''}
-        },
+    static navigatorStyle = {
+        navBarButtonColor: "#000000"
+    };
 
-    };*/
+    /* state = {
+         viewMode : Dimensions.get("window").height>500 ? "portrait": "landscape",
+         gender: '',
+         controls: {
+             patientName: {
+                 value: '',
+                 valid: false,
+                 validationRules:{
+                     isName: true
+                 },
+                 touched: false ,
+             },
+             surName: {
+                 value: '',
+                 valid: false,
+                 validationRules:{
+                     isName: true
+                 },
+                  touched: false,
+             },
+             email:{
+                 value:'',
+                 valid: false,
+                 validationRules:{
+                     isEmail: true
+                 },
+                 touched: false
+             },
+             mobileNo: {
+                 value:"",
+                 valid: false,
+                 validationRules:{
+                     isPhoneNo: true
+                 },
+                 touched: false
+             },
+             height: {
+                 value: '',
+                 touched: false,
+                 valid: false,
+                 validationRules:{
+                     maxLength: 3
+                 }
+             },
+             weight: {value: '', touched: false, valid: false,},
+             bloodType: {value: '', touched: false, valid: false,},
+             complaint: {value: '', touched: false, valid: false,},
+             date: {
+                 value: new Date(),
+                 valid: false,
+             },
+             homeNo: {value: '', touched: false,  valid: false,},
+             address: {value: '', touched: false ,  valid: false,},
+             contactName: {value: '', touched: false ,  valid: false,},
+             contactRelationship: {value: '', touched: false ,  valid: false,},
+             contactPhoneNo: {value: '', touched: false ,  valid: false,},
+             patientId: {value: ''}
+         },
+
+     };*/
     resetValuesOfData = ()=>{
         this.setState({
             viewMode : Dimensions.get("window").height>500 ? "portrait": "landscape",
@@ -381,7 +385,7 @@ class PatientProfileScreen extends Component {
                         value={this.state.controls.patientName}
                         onChangeText={val=>this.updateInputState("patientName",val)}
 
-                        autoCapitalize="non"
+                        //autoCapitalize="non"
                         autoCorrect={true}
                         keyboardType="default"
                         valid={this.state.controls.patientName.valid}
@@ -449,7 +453,7 @@ class PatientProfileScreen extends Component {
                                 placeholder="E-mail address"
                                 value={this.state.controls.email}
                                onChangeText={this.emailChangeHandler}
-                                autoCapitalize="non"
+                                //autoCapitalize="non"
                                 autoCorrect={false}
                                 keyboardType="email-address"
                                 textInputRef={ref => (this.emailInput = ref)}
@@ -591,7 +595,6 @@ class PatientProfileScreen extends Component {
                             style={{marginLeft: 10,}}
                             selectedValue={this.state.gender}
                             onValueChange={this.genderChangeHandler}>
-
                             <Picker.Item value='' label='Select Gender'/>
                             <Picker.Item label="Male" value="male"/>
                             <Picker.Item label="Female" value="female"/>
@@ -605,6 +608,7 @@ class PatientProfileScreen extends Component {
                                 ? styles.portraitInputWrapper
                                 : styles.landscapeInputWrapper}>
                                 <Text style={{textAlign: 'center'}} >Date</Text>
+
                     <DatePicker
                         style={this.state.viewMode==="portrait"
                             ? styles.portraitDateWrapper
@@ -612,11 +616,9 @@ class PatientProfileScreen extends Component {
                         date={this.state.controls.date.value}
                         mode="date"
                         placeholder="select date"
-
-
                         format="YYYY-MM-DD"
-                        minDate="1993-11-30"
-                        maxDate="2020-06-01"
+                        minDate="1970-01-011"
+                        maxDate="2050-01-01"
                         confirmBtnText="Confirm"
                         cancelBtnText="Cancel"
                         customStyles={{
@@ -771,7 +773,7 @@ const styles = {
         width:"80%",
     },
     portraitDateWrapper:{
-        width:325
+        width:"90%",
     },
     landscapeDateWrapper:{
         width:225,

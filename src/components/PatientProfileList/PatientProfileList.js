@@ -69,6 +69,7 @@ componentWillMount(){
                     style={styles.listContainer}
                     data={this.props.patients.filter(createFilter(this.state.search, this.state.KEYS_TO_FILTERS))}
                     renderItem={this.renderItem}
+                    keyExtractor={(item, index) => index}
 
                 />
 

@@ -45,7 +45,7 @@ const startTabs =()=> {
                 tabsStyle:{
                     tabBarSelectedButtonColor : "#000000",
                     forceTitlesDisplay: true,
-                    tabBarBackgroundColor: '#551A8B'
+                   // tabBarBackgroundColor: '#000000'
                 },
                 drawer :{
                     left :{

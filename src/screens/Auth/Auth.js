@@ -10,7 +10,7 @@ import validate from "../../utility/validation";
 import {connect} from 'react-redux';
 import {authSingIn , authAutoSignIn} from '../../store/actions/index';
 
-console.disableYellowBox = true;
+//console.disableYellowBox = true;
 
 class AuthScreen extends Component{
     constructor(props){
@@ -150,7 +150,7 @@ class AuthScreen extends Component{
                                           onChangeText={val=>this.updateInputState("email",val)}
                                           valid={this.state.controls.email.valid}
                                           touched={this.state.controls.email.touched}
-                                          autoCapitalize="non"
+                                          //autoCapitalize="non"
                                           autoCorrect={false}
                                           keyboardType="email-address"
                             />
