@@ -1,5 +1,15 @@
 import React , {Component} from 'react';
-import {View , StyleSheet ,ImageBackground , Dimensions , KeyboardAvoidingView , Keyboard , TouchableWithoutFeedback , ActivityIndicator} from 'react-native';
+import {
+    View,
+    StyleSheet,
+    ImageBackground,
+    Dimensions,
+    KeyboardAvoidingView,
+    Keyboard,
+    TouchableWithoutFeedback,
+    ActivityIndicator,
+    TextInput
+} from 'react-native';
 import  DefaultInput from "../../components/UI/DefaultInput/DefaultInput";
 import HeadingText from "../../components/UI/HeadingText/HeadingText";
 import MainText from "../../components/UI/MainText/MainText";
@@ -10,7 +20,7 @@ import validate from "../../utility/validation";
 import {connect} from 'react-redux';
 import {authSingIn , authAutoSignIn} from '../../store/actions/index';
 
-//console.disableYellowBox = true;
+console.disableYellowBox = true;
 
 class AuthScreen extends Component{
     constructor(props){
@@ -65,8 +75,6 @@ class AuthScreen extends Component{
                 dims.window.height > 500 ? "portrait" : "landscape",
         });
     };
-
-
     /********
      * When onPress Login
      */
@@ -76,11 +84,7 @@ class AuthScreen extends Component{
             password:this.state.controls.password.value
         };
         this.props.onTryAuth(authData ,this.state.authMode );
-
-
-
     };
-
     /*****
      *
      * @param key identifer my contorls like email , password , ...
@@ -104,7 +108,6 @@ class AuthScreen extends Component{
             };
         });
     };
-
     render(){
         let headingText= null;
         let submitButton1 = (
@@ -158,14 +161,12 @@ class AuthScreen extends Component{
                             this.state.authMode==="login"
                                 ? styles.portraitPasswordContainer
                                 : styles.landscapePasswordContainer}>
-
                                 <View style={this.state.viewMode==="portrait" ||
                                 this.state.authMode==="login"
                                     ? styles.portraitPasswordWrapper
                                     : styles.landscapePasswordWrapper}>
-
-
-                                    <DefaultInput placeholder="Password"
+                                    <DefaultInput
+                                        placeholder="Password"
                                                   placeholderTextColor="white"
                                                   style={styles.input}
                                                   value={this.state.controls.password.value}
@@ -173,7 +174,6 @@ class AuthScreen extends Component{
                                                   valid={this.state.controls.password.valid}
                                                   touched={this.state.controls.password.touched}
                                                   secureTextEntry
-
                                     />
                                 </View>
                             </View>
@@ -233,6 +233,21 @@ const styles = StyleSheet.create({
         },
     buttonTitleStyle: {
         color:'white'},
+    inputs1:{
+        width:"100%",
+        borderWidth:1,
+        borderColor:"#eee",
+        padding : 5,
+        marginTop:8,
+        marginBottom:8,
+        backgroundColor: 'transparent' ,
+        color : "white"
+
+    },
+    invalid:{
+        backgroundColor:"#f9c0c0",
+        borderColor:"red",
+    },
 });
 
 const mapStateToProps = state =>{

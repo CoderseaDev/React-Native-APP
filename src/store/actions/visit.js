@@ -35,23 +35,20 @@ export const addVisitor = ( comment, image, date, pkey) => {
             }
         })
             .then((responseJson) => {
-              //  console.log(responseJson);
-             //   console.log(responseJson.data.message);
                 dispatch(uiStopLoading());
-                Toast.show('You Have Add The Visitor!', Toast.LONG);
+                Toast.show('You Have Add The Visit', Toast.LONG);
             })
             .catch((error) => {
                 if(error.response.data.error) {
                     dispatch(uiStopLoading());
-                  //  console.log(error.response.data.error);
-                    alert(error.response.data.error);
+                        alert(error.response.data.error);
                 }
 
             })
             .catch((error) => {
             dispatch(uiStopLoading());
             alert("Please Upload Image");
-           // console.log(error)
+
 
 
         })
@@ -61,16 +58,15 @@ export const addVisitor = ( comment, image, date, pkey) => {
  * Get Visitor by @param pkey1
  */
 export const getVisitor = (pkey1) => {
-    return (dispatch, getState) => {
 
-       // console.log(  pkey1);
+    return (dispatch, getState) => {
+        dispatch(uiStartLoading());
         axios.get(`http://165.227.220.14:8080/patient/${pkey1}`, {
             headers: {
                 'content-type': 'application/json', "Authorization": getState().auth.token
             }
         })
             .then(res => {
-                dispatch(uiStartLoading());
                 const response = JSON.parse(res.request._response).visits_info;
                 dispatch(uiStopLoading());
                 if(response.length===0) {
@@ -83,21 +79,13 @@ export const getVisitor = (pkey1) => {
                         { cancelable: false }
                     )
                 }else{
-
                     dispatch(setVisitor(response));
-
                 }
-
-
-
             })
             .catch((err) => {
-              //  console.log(err.response.data);
                 dispatch(uiStopLoading());
             })
-
     };
-
 };
 /*****
  * To Set Visitor To Our Redux Store

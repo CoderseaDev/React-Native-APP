@@ -17,36 +17,28 @@ export const authSingIn = (authData) => {
                 email: authData.email,
                 password: authData.password,
         })
-        //     .catch(err=>{
-        //         console.log(err);
-        //         alert(err);
-        //         dispatch(uiStopLoading())
-        //
-        // })
             .then(res => {
                 const response = JSON.parse(res.request._response);
-              //  console.log(response);
-
                 if(!response.token){
-
                     alert(response.message);
-                    dispatch(uiStopLoading());
                 }else{
                 dispatch(authStoreToken(response.token, response.expiresIn , response.refreshToken));
-                    dispatch(uiStopLoading());
                       startMainTabs();
-                    dispatch(uiStartLoading());
+                    dispatch(uiStopLoading());
                     Toast.show('You Have Logged In!', Toast.LONG);
                 }
             })
             .catch((err) => {
                 alert(err.response.data.message);
-               // console.log(err.response.data.message);
                 dispatch(uiStopLoading());
             })
 
+            .catch((err)=> {
+                    alert("Check Your Internet Connection")
+                dispatch(uiStopLoading());
+        })
 
-        dispatch(uiStopLoading());
+
 
 
      }
@@ -148,7 +140,7 @@ export const authAutoSignIn = () => {
                 startMainTabs();
                 dispatch(uiStartLoading());
             })
-           // .catch(err => console.log("Failed to fetch token!"));
+
     };
 };
 /*******
