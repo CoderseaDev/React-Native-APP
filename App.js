@@ -98,14 +98,6 @@ Navigation.registerComponent(
 export default () => Navigation.startSingleScreenApp({
     screen: {
         screen: "Medical.AuthScreen",
-     //   title: "Login Screen"
     },
 
 });
-
-// export default () => Navigation.startSingleScreenApp({
-//     screen: {
-//         screen: "awesome-places.AuthScreen",
-//         title: "Login"
-//     }
-// });

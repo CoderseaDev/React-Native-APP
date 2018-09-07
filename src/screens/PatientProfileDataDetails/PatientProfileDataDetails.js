@@ -299,9 +299,6 @@ class PatientProfileDataDetailsScreen extends Component {
                             this.mobileNoInput.focus()
                         }}
                     >{this.props.selectedPatient.email}</FormInput>
-                    {this.state.controls.email.touched && !this.state.controls.email.valid
-                        ?<FormValidationMessage>Please Enter a Valid Email</FormValidationMessage>
-                        :null}
                 </View>
 
                     <View  style={this.state.viewMode==="portrait"

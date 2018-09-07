@@ -13,6 +13,7 @@ const styles = StyleSheet.create({
 
     inputs:{
        width:"100%",
+        height : 40,
         borderWidth:1,
         borderColor:"#eee",
         padding : 5,
