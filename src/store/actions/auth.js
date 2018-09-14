@@ -21,6 +21,7 @@ export const authSingIn = (authData) => {
                 const response = JSON.parse(res.request._response);
                 if(!response.token){
                     alert(response.message);
+                    dispatch(uiStopLoading());
                 }else{
                 dispatch(authStoreToken(response.token, response.expiresIn , response.refreshToken));
                       startMainTabs();
