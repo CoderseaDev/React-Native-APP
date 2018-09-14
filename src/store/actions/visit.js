@@ -1,6 +1,5 @@
 import {uiStartLoading, uiStopLoading} from './index';
 import {SET_VISITOR} from "./actionTypes";
-
 import Toast from 'react-native-simple-toast';
 import axios from 'axios';
 import {Alert} from 'react-native'
@@ -11,9 +10,7 @@ import {Alert} from 'react-native'
 export const addVisitor = ( comment, image, date, pkey) => {
     return (dispatch, getState) => {
         dispatch(uiStartLoading());
-
         const data = new FormData();
-
         let possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
         data.append('comment', comment);
         data.append('date', new Date(date).toISOString());
@@ -25,8 +22,6 @@ export const addVisitor = ( comment, image, date, pkey) => {
             // Specify the File Name , becuase IOS FileName is not find , android is find w must create that to create new file name
             name : possible.charAt(Math.floor(Math.random() * possible.length))
         });
-
-
         axios.post("http://165.227.220.14:8080/visit/addVisit", data, {
             headers: {
                 'Accept': 'application/json',
@@ -43,14 +38,10 @@ export const addVisitor = ( comment, image, date, pkey) => {
                     dispatch(uiStopLoading());
                         alert(error.response.data.error);
                 }
-
             })
             .catch((error) => {
             dispatch(uiStopLoading());
             alert("Please Upload Image");
-
-
-
         })
     }
 };
@@ -58,7 +49,6 @@ export const addVisitor = ( comment, image, date, pkey) => {
  * Get Visitor by @param pkey1
  */
 export const getVisitor = (pkey1) => {
-
     return (dispatch, getState) => {
         dispatch(uiStartLoading());
         axios.get(`http://165.227.220.14:8080/patient/${pkey1}`, {

@@ -684,13 +684,8 @@ class PatientProfileScreen extends Component {
                         textInputRef={ref => (this.contactPhoneNoInput = ref)}
                     />
                     </View>
-
-
-
                 </ScrollView>
-
                     {saveButton1}
-
                 </KeyboardAvoidingView>
 
         );
@@ -718,9 +713,7 @@ const styles = {
         fontSize: 20,
         textAlign: 'center',
         color: '#8b0000',
-
     },
-
     LineStyle: {
         borderBottomWidth: 1,
         paddingVertical: 10
@@ -752,7 +745,6 @@ const styles = {
     },
     button: {
         margin: 15,
-
 
     },
     landscapeInputContainer:{
@@ -792,10 +784,7 @@ const styles = {
         justifyContent: 'center',
         elevation: 8,
 
-
     },
-
-
     addButtonIfDisabled: {
         position: 'absolute',
         zIndex: 11,
@@ -808,7 +797,6 @@ const styles = {
         alignItems: 'center',
         justifyContent: 'center',
         elevation: 8,
-
 
     },
 
@@ -835,9 +823,7 @@ const mapDispatchToProps = dispatch => {
                 gender, bloodType, complaint, date,
                 homeNo, mobileNo, address, email, contactName,
                 contactRelationship, contactPhoneNo)),
-
         onStartAddPatient: () => dispatch(startAddPatient())
-
 
     };
 };

@@ -91,9 +91,6 @@ Navigation.registerComponent(
     store,
     Provider
 );
-
-
-
 //Start a App
 export default () => Navigation.startSingleScreenApp({
     screen: {
